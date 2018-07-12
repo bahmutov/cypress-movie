@@ -10,5 +10,11 @@ cypress.run()
     //      wallClockDuration
     // we cut and crop the movie for each test nicely.
 
-    console.log(JSON.stringify(results.runs, null, 2))
+    results.runs.forEach(run => {
+      run.tests.forEach(test => {
+        console.log(test.title, test.videoTimestamp, test.wallClockDuration)
+      })
+    })
+
+    // console.log(JSON.stringify(results.runs, null, 2))
   })

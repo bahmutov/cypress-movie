@@ -24,10 +24,11 @@ it('works', () => {
     const s = JSON.stringify(size, null, 2) + '\n'
     cy.writeFile('size.json', s, 'utf8')
   })
+
   // capture several resolutions
-  cy.screenshot('runner', {
-    capture: 'runner'
-  })
+  // cy.screenshot('runner', {
+  //   capture: 'runner'
+  // })
   // cy.screenshot('app', {
   //   capture: 'viewport'
   // })
