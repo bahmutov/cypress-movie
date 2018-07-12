@@ -1,7 +1,21 @@
 /// <reference types="cypress" />
 
+Cypress.Commands.add('toast', (message, duration = 3000) => {
+  cy.window({log: false}).its('tinyToast').invoke('show', message).invoke('hide', duration)
+  cy.wait(duration, {log: false})
+})
+
 const getIframesContainer = () =>
   window.parent.window.document.querySelector('.iframes-container')
+
+const loadTinyToast = (doc) => {
+  const tinyToastUrl = 'https://cdn.rawgit.com/bahmutov/tiny-toast/8ab63c4a/dist/tiny-toast.js'
+  // const doc = cy.state('document')
+  const script_tag = doc.createElement('script')
+  script_tag.type = 'text/javascript'
+  script_tag.src = tinyToastUrl
+  doc.head.appendChild(script_tag)
+}
 
 const findAppRectangle = () => {
   const el = getIframesContainer()
@@ -41,28 +55,37 @@ const clearCompleted = () => {
   scroll()
 }
 
-it('adds and removes completed todos', () => {
-  cy.visit('http://todomvc.com/examples/react/')
+it('adds and removes completed todos', function () {
+  cy.visit('http://todomvc.com/examples/react/', {
+    onBeforeLoad: (win) => {
+      loadTinyToast(win.document)
+    },
+    onLoad: (win) => {
+      win.tinyToast.show(this.test.title).hide(3000)
+    }
+  })
   cy.get('.new-todo').should('be.visible')
   addTodo('this is first todo')
   addTodo('second todo')
 
   // cy.wait(1000)
   cy.contains('ul.todo-list li', 'second todo').find('input.toggle').check()
+  cy.toast('Checked 1 todo')
   scroll()
 
   cy.contains('.todo-count', '1').should('be.visible')
-  // cy.wait(100)
+
+  cy.toast('Filters: Active / Completed / All')
   pickFilter('Active')
   pickFilter('Completed')
   pickFilter('All')
 
+  cy.toast('Clicking "Clear completed" button')
   clearCompleted()
 
-  addTodo('Completed items have been removed')
+  cy.toast('Completed items have been removed', 5000)
 
-  cy.wait(1000)
-  .then(() => {
+  cy.then(() => {
     const rect = findAppRectangle()
     const size = serializeRectangle(rect)
     console.log(size)

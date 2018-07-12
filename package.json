@@ -8,7 +8,7 @@
     "open": "cypress open",
     "run": "cypress run",
     "crop": "./node_modules/@ffmpeg-installer/darwin-x64/ffmpeg -i cypress/videos/spec.js.mp4 -filter:v 'crop=830:674:450:46' -y out.mp4",
-    "clip": "./node_modules/@ffmpeg-installer/darwin-x64/ffmpeg -i out.mp4 -ss 3 -t 00:00:09.109 -acodec copy -vcodec copy -y clipped.mp4",
+    "clip": "./node_modules/@ffmpeg-installer/darwin-x64/ffmpeg -i out.mp4 -ss 3 -t 00:00:20.472 -acodec copy -vcodec copy -y clipped.mp4",
     "ffmpeg": "node -e \"console.log(require('@ffmpeg-installer/ffmpeg').path)\""
   },
   "keywords": [],
