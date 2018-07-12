@@ -6,12 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "open": "cypress open",
-    "run": "cypress run"
+    "run": "cypress run",
+    "crop": "./node_modules/@ffmpeg-installer/darwin-x64/ffmpeg -i cypress/videos/spec.js.mp4 -filter:v 'crop=830:674:450:46' -y out.mp4",
+    "ffmpeg": "node -e \"console.log(require('@ffmpeg-installer/ffmpeg').path)\""
   },
   "keywords": [],
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com> (https://glebbahmutov.com/)",
   "license": "ISC",
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "1.0.15",
     "cypress": "3.0.2"
   }
 }
