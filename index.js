@@ -2,6 +2,8 @@ const cypress = require('cypress')
 
 cypress.run()
   .then(results => {
+    // console.log(JSON.stringify(results, null, 2))
+
     // for each results.runs
     //  get tests
     //    each test
