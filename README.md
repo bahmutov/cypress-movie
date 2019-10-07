@@ -24,3 +24,17 @@ Here is a cropped video example
 ![Cropped video](images/cropped.gif)
 
 Then you can also clip the cropped video to the desired duration using `npm run clip`
+
+## Feedback
+
+If you have ideas in what directions this could go - please open an issue in this repo. I would love to hear them.
+
+### Small print
+
+Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2017
+
+* [@bahmutov](https://twitter.com/bahmutov)
+* [glebbahmutov.com](https://glebbahmutov.com)
+* [blog](https://glebbahmutov.com/blog)
+
+License: MIT - do anything with the code, but don't blame me if it does not work.
