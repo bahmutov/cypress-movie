@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+// load toast pop up library once
+// and then inject on each visit
 let tinyToastSource
 
 before(function loadTinyToastSource () {
@@ -18,16 +20,6 @@ Cypress.Commands.add('toast', (message, duration = 3000) => {
 
 const getIframesContainer = () =>
   window.parent.window.document.querySelector('.iframes-container')
-
-const loadTinyToast = doc => {
-  // const tinyToastUrl = 'https://cdn.rawgit.com/bahmutov/tiny-toast/8ab63c4a/dist/tiny-toast.js'
-  // const doc = cy.state('document')
-
-  const script_tag = doc.createElement('script')
-  script_tag.type = 'text/javascript'
-  script_tag.src = tinyToastUrl
-  doc.head.appendChild(script_tag)
-}
 
 const findAppRectangle = () => {
   const el = getIframesContainer()
@@ -73,8 +65,6 @@ const clearCompleted = () => {
 it('adds and removes completed todos', function () {
   cy.visit('http://todomvc.com/examples/react/', {
     onBeforeLoad: win => {
-      // loadTinyToast(win.document)
-      debugger
       win.eval(tinyToastSource)
     },
     onLoad: win => {
