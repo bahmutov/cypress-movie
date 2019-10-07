@@ -1,7 +1,7 @@
 {
   "name": "cypress-movie",
   "version": "1.0.0",
-  "description": "",
+  "description": "Exploring how one can generate product demo videos from Cypress tests",
   "main": "index.js",
   "scripts": {
     "test": "node .",
@@ -16,6 +16,9 @@
   "license": "ISC",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "1.0.15",
-    "cypress": "3.0.2"
+    "cypress": "3.4.1"
+  },
+  "devDependencies": {
+    "tiny-toast": "1.2.0"
   }
 }
