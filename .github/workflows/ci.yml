@@ -9,6 +9,8 @@ jobs:
 
       - name: Cypress run 🧪
         uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
 
       # Test run video was always captured, so this action uses "always()" condition
       - name: Store videos 🎞
