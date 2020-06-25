@@ -10,18 +10,6 @@ before(function loadTinyToastSource () {
   })
 })
 
-// could be all commands
-// const commandsToSlowDown = Object.keys(Cypress.Commands._commands)
-const commandsToSlowDown = ['click', 'check']
-const PAUSE_MS = 1000
-commandsToSlowDown.forEach(commandName => {
-  Cypress.Commands.overwrite(commandName, (commandFn, ...args) => {
-    return commandFn(...args).then(subject => {
-      return Cypress.Promise.resolve(subject).delay(PAUSE_MS)
-    })
-  })
-})
-
 Cypress.Commands.add('toast', (message, duration = 3000) => {
   cy.window({ log: false })
     .its('tinyToast')
@@ -106,14 +94,14 @@ it('adds and removes completed todos', function () {
 
   cy.toast('Completed items have been removed', 5000)
 
-  cy.then(() => {
-    const rect = findAppRectangle()
-    const size = serializeRectangle(rect)
-    console.log(size)
-    // return cy.task('size', size)
-    const s = JSON.stringify(size, null, 2) + '\n'
-    cy.writeFile('size.json', s, 'utf8')
-  })
+  // cy.then(() => {
+  //   const rect = findAppRectangle()
+  //   const size = serializeRectangle(rect)
+  //   console.log(size)
+  //   // return cy.task('size', size)
+  //   const s = JSON.stringify(size, null, 2) + '\n'
+  //   cy.writeFile('size.json', s, 'utf8')
+  // })
 
   // capture several resolutions
   // cy.screenshot('runner', {

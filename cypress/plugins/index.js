@@ -35,4 +35,10 @@ module.exports = (on, config) => {
       return launchOptions
     }
   })
+
+  console.log(config)
+
+  config.viewportWidth = 1920
+  config.viewportHeight = 1080
+  return config
 }
