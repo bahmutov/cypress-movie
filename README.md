@@ -7,25 +7,9 @@ Example capturing video of the test run with additional message pop ups (using [
 
 Related video: [WeAreDevs presentation](https://www.youtube.com/watch?v=p38bIMC-YOU) - start watching at minute 34. Presentation slides at [slides.com/bahmutov/e2e-in-the-future](https://slides.com/bahmutov/e2e-in-the-future).
 
-Cypress also computes the inner application iframe size and saves its json in `size.json` after the tests pass. Then you can clip and crop the entire video to only have the "demo" of the test in action.
+The movies are generated at 1920x1080, the headless browser is set to the same size. The command log is hidden, thus the app takes the entire video. Here is a still from a movie generated on CI with its dimensions shown.
 
-Command `npm run crop` will use [ffmpeg to crop video](https://ffmpeg.org/ffmpeg-filters.html#crop) to only have the application area. First edit the `package.json` `crop` script command using application area dimensions from `size.json`.
-
-```
-# -filter:v 'crop=830:674:450:46'
-# has 4 numbers:
-# output width
-# output height
-# left edge to set output video
-# top edge to set output video
-npm run crop
-```
-
-Here is a cropped video example
-
-![Cropped video](images/cropped.gif)
-
-Then you can also clip the cropped video to the desired duration using `npm run clip`
+![Video at 1920x1080](images/movie-screenshot.png)
 
 ## Feedback
 
