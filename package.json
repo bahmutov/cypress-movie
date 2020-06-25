@@ -16,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "1.0.15",
-    "cypress": "3.4.1"
+    "cypress": "4.9.0"
   },
   "devDependencies": {
     "tiny-toast": "1.2.0"
