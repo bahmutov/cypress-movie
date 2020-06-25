@@ -1,4 +1,4 @@
-# cypress-movie
+# cypress-movie [![ci status][ci image]][ci url]
 > Exploring how one can generate product demo videos from Cypress tests
 
 Example capturing video of the test run with additional message pop ups (using [tiny-toast](https://github.com/bahmutov/tiny-toast) library injected on `cy.visit`)
@@ -40,3 +40,6 @@ Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2017
 * [blog](https://glebbahmutov.com/blog)
 
 License: MIT - do anything with the code, but don't blame me if it does not work.
+
+[ci image]: https://github.com/bahmutov/cypress-movie/workflows/ci/badge.svg?branch=master
+[ci url]: https://github.com/bahmutov/cypress-movie/actions
