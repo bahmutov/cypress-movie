@@ -1,4 +1,4 @@
-# cypress-movie [![ci status][ci image]][ci url]
+# cypress-movie [![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app]
 > Exploring how one can generate product demo videos from Cypress tests
 
 Example capturing video of the test run with additional message pop ups (using [tiny-toast](https://github.com/bahmutov/tiny-toast) library injected on `cy.visit`)
@@ -43,3 +43,5 @@ License: MIT - do anything with the code, but don't blame me if it does not work
 
 [ci image]: https://github.com/bahmutov/cypress-movie/workflows/ci/badge.svg?branch=master
 [ci url]: https://github.com/bahmutov/cypress-movie/actions
+[renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
+[renovate-app]: https://renovateapp.com/
