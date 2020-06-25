@@ -11,6 +11,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
+          headless: true
 
       # Test run video was always captured, so this action uses "always()" condition
       - name: Store videos 🎞
