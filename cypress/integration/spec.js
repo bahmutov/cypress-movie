@@ -10,6 +10,18 @@ before(function loadTinyToastSource () {
   })
 })
 
+// could be all commands
+// const commandsToSlowDown = Object.keys(Cypress.Commands._commands)
+const commandsToSlowDown = ['click', 'check']
+const PAUSE_MS = 1000
+commandsToSlowDown.forEach(commandName => {
+  Cypress.Commands.overwrite(commandName, (commandFn, ...args) => {
+    return commandFn(...args).then(subject => {
+      return Cypress.Promise.resolve(subject).delay(PAUSE_MS)
+    })
+  })
+})
+
 Cypress.Commands.add('toast', (message, duration = 3000) => {
   cy.window({ log: false })
     .its('tinyToast')
@@ -30,7 +42,7 @@ const findAppRectangle = () => {
 const serializeRectangle = rect =>
   Cypress._.pick(rect, 'bottom', 'height', 'left', 'top', 'right', 'width')
 
-const addTodo = text => cy.get('.new-todo').type(`${text}{enter}`)
+const addTodo = text => cy.get('.new-todo').type(`${text}{enter}`, {delay: 100})
 
 // scrolls back to the top
 // really necessary only if the page is taller than
