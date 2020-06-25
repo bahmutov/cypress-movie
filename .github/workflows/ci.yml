@@ -1,0 +1,19 @@
+name: ci
+on: [push]
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v1
+
+      - name: Cypress run 🧪
+        uses: cypress-io/github-action@v2
+
+      # Test run video was always captured, so this action uses "always()" condition
+      - name: Store videos 🎞
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
