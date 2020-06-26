@@ -12,7 +12,7 @@ commandsToSlowDown.forEach(commandName => {
   })
 })
 
-Cypress.Commands.add("clearViewport", () => {
+const clearViewport = () => {
   const runnerContainer = window.parent.document.getElementsByClassName(
     "iframes-container"
   )[0];
@@ -35,7 +35,18 @@ Cypress.Commands.add("clearViewport", () => {
     ".runner.container header"
   );
   header.setAttribute("style", "opacity: 0");
-});
+}
+Cypress.Commands.add("clearViewport", clearViewport);
+
+// trying to overwrite the "cy.screenshot" command to restore full view
+Cypress.Commands.overwrite('screenshot', (screenshot, ...args) => {
+  return screenshot(...args).then(() => {
+    if (Cypress.browser.isHeadless) {
+      // go back to "full application view"
+      setTimeout(clearViewport, 0)
+    }
+  })
+})
 
 before(() => {
   if (Cypress.browser.isHeadless) {
