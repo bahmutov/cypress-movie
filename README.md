@@ -7,7 +7,7 @@ Example capturing high resolution video of the test run with additional message 
 
 The movies are generated at 1920x1080, the headless browser is set to the same size. The command log is hidden, thus the app takes the entire video. Here is a still from a movie generated on CI with its dimensions shown.
 
-Related video: [WeAreDevs presentation](https://www.youtube.com/watch?v=p38bIMC-YOU) - start watching at minute 34. Presentation slides at [slides.com/bahmutov/e2e-in-the-future](https://slides.com/bahmutov/e2e-in-the-future).
+Related video: [WeAreDevs presentation](https://youtu.be/p38bIMC-YOU?t=1949) - start watching at minute 32. Presentation slides at [slides.com/bahmutov/e2e-in-the-future](https://slides.com/bahmutov/e2e-in-the-future).
 
 ## Details
 
