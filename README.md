@@ -9,6 +9,14 @@ The movies are generated at 1920x1080, the headless browser is set to the same s
 
 Related video: [WeAreDevs presentation](https://www.youtube.com/watch?v=p38bIMC-YOU) - start watching at minute 34. Presentation slides at [slides.com/bahmutov/e2e-in-the-future](https://slides.com/bahmutov/e2e-in-the-future).
 
+## Details
+
+When using `cypress run` the headless browser is set to use 1920x1080 resolution from the [cypress/plugins/index.js](cypress/plugins/index.js) file. The viewport width and height are also set to the same values using the config object. During the test run, the Command Log is hidden before the test, see [cypress/support/index.js](cypress/support/index.js) file.
+
+## Continuous Integration
+
+I could reliably generate 1920x1080 movies on CI only by using headless Chrome browser. For example see [GitHub Actions ci.yml](.github/workflows/ci.yml) file.
+
 ## Feedback
 
 If you have ideas in what directions this could go - please open an issue in this repo. I would love to hear them.
