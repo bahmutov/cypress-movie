@@ -1,15 +1,13 @@
 # cypress-movie [![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app]
 > Exploring how one can generate product demo videos from Cypress tests
 
-Example capturing video of the test run with additional message pop ups (using [tiny-toast](https://github.com/bahmutov/tiny-toast) library injected on `cy.visit`)
+Example capturing high resolution video of the test run with additional message pop ups (using [tiny-toast](https://github.com/bahmutov/tiny-toast) library injected on `cy.visit`)
 
-![Toasts](images/with-toasts.gif)
-
-Related video: [WeAreDevs presentation](https://www.youtube.com/watch?v=p38bIMC-YOU) - start watching at minute 34. Presentation slides at [slides.com/bahmutov/e2e-in-the-future](https://slides.com/bahmutov/e2e-in-the-future).
+![Video at 1920x1080](images/movie-screenshot.png)
 
 The movies are generated at 1920x1080, the headless browser is set to the same size. The command log is hidden, thus the app takes the entire video. Here is a still from a movie generated on CI with its dimensions shown.
 
-![Video at 1920x1080](images/movie-screenshot.png)
+Related video: [WeAreDevs presentation](https://www.youtube.com/watch?v=p38bIMC-YOU) - start watching at minute 34. Presentation slides at [slides.com/bahmutov/e2e-in-the-future](https://slides.com/bahmutov/e2e-in-the-future).
 
 ## Feedback
 
