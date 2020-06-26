@@ -85,6 +85,12 @@ it('adds and removes completed todos', function () {
   cy.contains('.todo-count', '1').should('be.visible')
 
   cy.toast('Filters: Active / Completed / All')
+
+  // the screenshot does not restore the original
+  // position of the application iframe
+  // https://github.com/bahmutov/cypress-movie/issues/9
+  // cy.screenshot('filters', { capture: 'viewport' })
+
   pickFilter('Active')
   pickFilter('Completed')
   pickFilter('All')

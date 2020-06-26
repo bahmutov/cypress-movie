@@ -13,6 +13,12 @@ Related video: [WeAreDevs presentation](https://www.youtube.com/watch?v=p38bIMC-
 
 When using `cypress run` the headless browser is set to use 1920x1080 resolution from the [cypress/plugins/index.js](cypress/plugins/index.js) file. The viewport width and height are also set to the same values using the config object. During the test run, the Command Log is hidden before the test, see [cypress/support/index.js](cypress/support/index.js) file.
 
+Thus, if you have Chrome browser installed, generate full movies in `cypress/videos`
+
+```shell
+npm run chrome
+```
+
 ## Continuous Integration
 
 I could reliably generate 1920x1080 movies on CI only by using headless Chrome browser. For example see [GitHub Actions ci.yml](.github/workflows/ci.yml) file.
