@@ -1,5 +1,6 @@
 {
   "viewportWidth": 1000,
   "viewportHeight": 1000,
-  "videoCompression": false
+  "videoCompression": false,
+  "baseUrl": "http://todomvc.com"
 }

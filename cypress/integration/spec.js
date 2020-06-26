@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+// TODO move toast into support file
 // load toast pop up library once
 // and then inject on each visit
 let tinyToastSource
@@ -63,7 +64,7 @@ const clearCompleted = () => {
 }
 
 it('adds and removes completed todos', function () {
-  cy.visit('http://todomvc.com/examples/react/', {
+  cy.visit('/examples/react/', {
     onBeforeLoad: win => {
       win.eval(tinyToastSource)
     },
