@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import './commands'
+
 // could be all commands
 // const commandsToSlowDown = Object.keys(Cypress.Commands._commands)
 const commandsToSlowDown = ['click', 'check']
@@ -49,7 +51,6 @@ Cypress.Commands.overwrite('screenshot', function (screenshot, ...args) {
     return screenshot(...args)
   }
 
-  debugger
   return cy.task('takeScreenshot', {
     name,
     options,
@@ -71,7 +72,7 @@ Cypress.Commands.overwrite('screenshot', function (screenshot, ...args) {
 })
 
 before(() => {
-  // if (Cypress.browser.isHeadless) {
+  if (Cypress.browser.isHeadless) {
     cy.clearViewport()
-  // }
+  }
 })
