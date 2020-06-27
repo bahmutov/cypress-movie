@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "1.0.15",
+    "chrome-remote-interface": "0.28.2",
     "cypress": "4.9.0"
   },
   "devDependencies": {
