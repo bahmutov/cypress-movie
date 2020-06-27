@@ -13,6 +13,14 @@ jobs:
           browser: chrome
           headless: true
 
+      # our tests always have screenshots
+      - name: Store screenshots 🖼
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
       # Test run video was always captured, so this action uses "always()" condition
       - name: Store videos 🎞
         uses: actions/upload-artifact@v1
