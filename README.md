@@ -34,6 +34,7 @@ cy.get('.new-todo').arrow({
   offsetX: 0, // move the tip by X pixels
   offsetY: 0, // move the tip by Y pixels
   strokeWidth: 5 // SVG line width, pixels
+  color: 'orange', // color name or hex string like "#ff00ff"
 })
 ```
 

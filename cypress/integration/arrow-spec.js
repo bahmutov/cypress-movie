@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe('Arrows', () => {
-  it.only('shows arrow pointing at the element (non-blocking)', function () {
+  it('shows arrow pointing at the element (non-blocking)', function () {
     cy.visit('/examples/react/')
 
     cy.get('.new-todo').arrow({
@@ -41,6 +41,7 @@ describe('Arrows', () => {
       offsetX: -10,
       offsetY: 20,
       blocking: true,
+      color: 'green',
     })
 
     cy.contains('.filters li', 'Completed').arrow({
@@ -49,6 +50,7 @@ describe('Arrows', () => {
       blocking: true,
       offsetX: 50,
       offsetY: 20,
+      color: '#ff00ff'
     })
   })
 })
