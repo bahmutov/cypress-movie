@@ -5,7 +5,8 @@ describe('Arrows', () => {
     cy.visit('/examples/react/')
 
     cy.get('.new-todo').arrow({
-      duration: 3000
+      duration: 3000,
+      strokeWidth: 3
     })
     .type('See this arrow?')
   })
@@ -32,6 +33,7 @@ describe('Arrows', () => {
       offsetX: -10,
       offsetY: 20,
       blocking: true,
+      color: 'blue'
     })
 
     cy.contains('.filters li', 'Active').arrow({
@@ -39,6 +41,7 @@ describe('Arrows', () => {
       offsetX: -10,
       offsetY: 20,
       blocking: true,
+      color: 'green',
     })
 
     cy.contains('.filters li', 'Completed').arrow({
@@ -47,6 +50,7 @@ describe('Arrows', () => {
       blocking: true,
       offsetX: 50,
       offsetY: 20,
+      color: '#ff00ff'
     })
   })
 })

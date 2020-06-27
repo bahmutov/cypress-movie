@@ -25,14 +25,16 @@ npm run chrome
 
 You can draw arrows to point at DOM elements
 
-```js
+```jsx
 // all options are optional
 cy.get('.new-todo').arrow({
   duration: 3000,
   blocking: true,
-  pointAt: 'bottomLeft', // or 'bottomRight'
+  pointAt: 'bottomLeft', // or "bottomRight"
   offsetX: 0, // move the tip by X pixels
   offsetY: 0, // move the tip by Y pixels
+  strokeWidth: 5 // SVG line width, pixels
+  color: 'orange', // color name or hex string like "#ff00ff"
 })
 ```
 
