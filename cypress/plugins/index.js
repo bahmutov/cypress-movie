@@ -82,6 +82,7 @@ module.exports = (on, config) => {
 
   on('before:browser:launch', (browser = {}, launchOptions) => {
     debug('browser name: %s', browser.name)
+    client = null
 
     if (browser.name === 'electron' && browser.isHeadless) {
       launchOptions.preferences['width'] = 1920;
