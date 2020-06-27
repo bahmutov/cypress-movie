@@ -29,11 +29,15 @@ You can draw arrows to point at DOM elements
 // all options are optional
 cy.get('.new-todo').arrow({
   duration: 3000,
-  blocking: true
+  blocking: true,
+  pointAt: 'bottomLeft', // or 'bottomRight'
+  offsetX: 0, // move the tip by X pixels
+  offsetY: 0, // move the tip by Y pixels
 })
 ```
 
 ![Arrow example screenshot](images/arrow.png)
+
 
 See [cypress/integration/arrow-spec.js](cypress/integration/arrow-spec.js) for examples
 
