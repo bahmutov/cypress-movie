@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import './commands'
+
 // could be all commands
 // const commandsToSlowDown = Object.keys(Cypress.Commands._commands)
 const commandsToSlowDown = ['click', 'check']

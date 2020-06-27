@@ -19,6 +19,24 @@ Thus, if you have Chrome browser installed, generate full movies in `cypress/vid
 npm run chrome
 ```
 
+## Helpers
+
+### Arrows
+
+You can draw arrows to point at DOM elements
+
+```js
+// all options are optional
+cy.get('.new-todo').arrow({
+  duration: 3000,
+  blocking: true
+})
+```
+
+![Arrow example screenshot](images/arrow.png)
+
+See [cypress/integration/arrow-spec.js](cypress/integration/arrow-spec.js) for examples
+
 ## Continuous Integration
 
 I could reliably generate 1920x1080 movies on CI only by using headless Chrome browser. For example see [GitHub Actions ci.yml](.github/workflows/ci.yml) file.
