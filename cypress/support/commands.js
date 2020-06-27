@@ -24,20 +24,51 @@ function getArrowSvg(c_e1, c_e2, strokeWidth = 1) {
 const arrowCommand = ($el, options = {}) => {
   Cypress._.defaults(options, {
     duration: 2000,
-    blocking: false
+    blocking: false,
+    offsetX: 0,
+    offsetY: 0,
+    // by default point at the element's bottom left corner
+    pointAt: 'bottomLeft'
   })
   // console.log('options', options)
   cy.log('**arrow**')
   const r = $el[0].getBoundingClientRect()
   // console.log('bounding box', r)
+
+  const directions = {
+    bottomLeft: {
+      x: 'left',
+      y: 'bottom'
+    },
+    bottomRight: {
+      x: 'right',
+      y: 'bottom'
+    }
+  }
+  const pointAt = directions[options.pointAt] || directions.bottomLeft
   const to = {
-    x: r.left,
-    y: r.bottom
+    x: r[pointAt.x] + options.offsetX,
+    y: r[pointAt.y] + options.offsetY,
   }
+
+  const arrowFromDirections = {
+    bottomLeft: {
+      x: -120,
+      y: 120
+    },
+    bottomRight: {
+      x: 120,
+      y: 120
+    }
+  }
+  const pointFrom = arrowFromDirections[options.pointAt] || arrowFromDirections.bottomLeft
+
   const from = {
-    x: r.left - 120,
-    y: r.bottom + 120
+    x: to.x + pointFrom.x,
+    y: to.y + pointFrom.y
   }
+  // console.log('arrow from', from, 'to', to)
+
   const doc = $el[0].ownerDocument
   const body = doc.body
 
