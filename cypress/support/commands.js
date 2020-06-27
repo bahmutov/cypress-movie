@@ -1,6 +1,9 @@
 /// <reference types="cypress" />
 
-function getArrowSvg(c_e1, c_e2, strokeWidth = 1) {
+function getArrowSvg(c_e1, c_e2, options = {}) {
+  Cypress._.defaults(options, {
+    strokeWidth: 5
+  })
   // arrow from https://vanseodesign.com/web-design/svg-markers/
   const arrsvg = `
     <svg id="arrow"
@@ -11,7 +14,7 @@ function getArrowSvg(c_e1, c_e2, strokeWidth = 1) {
         </marker>
       </defs>
 
-      <line x1="${c_e1.x}" y1="${c_e1.y}" x2="${c_e2.x - 20}" y2="${c_e2.y + 20}" stroke="#000" stroke-width="5" marker-end="url(#arrow-marker)" />
+      <line x1="${c_e1.x}" y1="${c_e1.y}" x2="${c_e2.x - 20}" y2="${c_e2.y + 20}" stroke="#000" stroke-width="${options.strokeWidth}" marker-end="url(#arrow-marker)" />
       </svg>
       `
   return arrsvg
@@ -28,7 +31,9 @@ const arrowCommand = ($el, options = {}) => {
     offsetX: 0,
     offsetY: 0,
     // by default point at the element's bottom left corner
-    pointAt: 'bottomLeft'
+    pointAt: 'bottomLeft',
+    color: 'cyan',
+    strokeWidth: 5
   })
   // console.log('options', options)
   cy.log('**arrow**')
@@ -72,7 +77,9 @@ const arrowCommand = ($el, options = {}) => {
   const doc = $el[0].ownerDocument
   const body = doc.body
 
-  const arrowSvg = getArrowSvg(from, to)
+  const arrowSvg = getArrowSvg(from, to, {
+    strokeWidth: options.strokeWidth
+  })
   // console.log('arrow svg', arrowSvg)
   Cypress.$(body).append(arrowSvg)
 
