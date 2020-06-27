@@ -14,11 +14,13 @@
   },
   "keywords": [],
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com> (https://glebbahmutov.com/)",
-  "license": "ISC",
+  "license": "MIT",
+  "private": true,
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "1.0.15",
     "chrome-remote-interface": "0.28.2",
-    "cypress": "4.9.0"
+    "cypress": "4.9.0",
+    "debug": "4.1.1"
   },
   "devDependencies": {
     "tiny-toast": "1.2.0"

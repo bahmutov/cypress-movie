@@ -39,17 +39,39 @@ const clearViewport = () => {
 Cypress.Commands.add("clearViewport", clearViewport);
 
 // trying to overwrite the "cy.screenshot" command to restore full view
-Cypress.Commands.overwrite('screenshot', (screenshot, ...args) => {
-  return screenshot(...args).then(() => {
-    if (Cypress.browser.isHeadless) {
-      // go back to "full application view"
-      setTimeout(clearViewport, 0)
-    }
+Cypress.Commands.overwrite('screenshot', function (screenshot, ...args) {
+  // if (Cypress.browser.isHeadless) {
+    // TODO this should only happen during movie mode
+  console.log('screenshots args', args)
+  // for now only handle viewport and ignore subject
+  const [subject, name, options] = args
+  if (options.capture !== 'viewport') {
+    return screenshot(...args)
+  }
+
+  debugger
+  return cy.task('takeScreenshot', {
+    name,
+    options,
+    spec: Cypress.spec,
+    screenshotFolder: Cypress.config('screenshotsFolder')
   })
+  // }
+
+  // normal screenshot
+  // return screenshot(...args)
+
+  // return screenshot(...args).then(() => {
+  //   if (Cypress.browser.isHeadless) {
+  //     // go back to "full application view"
+  //     // setTimeout(clearViewport, 0)
+  //     cy.task()
+  //   }
+  // })
 })
 
 before(() => {
-  if (Cypress.browser.isHeadless) {
+  // if (Cypress.browser.isHeadless) {
     cy.clearViewport()
-  }
+  // }
 })
