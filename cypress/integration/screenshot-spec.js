@@ -9,11 +9,11 @@ describe('Screenshot examples', () => {
     cy.get('.new-todo').should('be.visible')
     // screenshots are still imperfect
     // https://github.com/bahmutov/cypress-movie/issues/9
-    // cy.screenshot('start', { capture: 'viewport' }).then(console.log)
+    cy.screenshot('start', { capture: 'viewport' }).then(console.log)
 
     addTodo('This is an example')
 
-    // cy.screenshot('finish', { capture: 'viewport' })
+    cy.screenshot('finish', { capture: 'viewport' })
 
   })
 })

@@ -75,7 +75,7 @@ it('adds and removes completed todos', function () {
   cy.get('.new-todo').should('be.visible')
   // screenshots are still imperfect
   // https://github.com/bahmutov/cypress-movie/issues/9
-  // cy.screenshot('start')
+  cy.screenshot('start', { capture: 'viewport' })
 
   addTodo('this is first todo')
   addTodo('second todo')
@@ -95,8 +95,8 @@ it('adds and removes completed todos', function () {
   // position of the application iframe
   // https://github.com/bahmutov/cypress-movie/issues/9
   // let the toast show
-  // cy.wait(50)
-  // cy.screenshot('filters', { capture: 'viewport' })
+  cy.wait(50)
+  cy.screenshot('filters', { capture: 'viewport' })
 
   pickFilter('Active')
   pickFilter('Completed')
