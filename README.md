@@ -27,6 +27,10 @@ I could reliably generate 1920x1080 movies on CI only by using headless Chrome b
 
 If you have ideas in what directions this could go - please open an issue in this repo. I would love to hear them.
 
+## Debugging
+
+Run project with `DEBUG=cypress-movie` environment variable to see verbose debug logs
+
 ### Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2017
