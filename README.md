@@ -81,6 +81,12 @@ See [scaling docs](https://ffmpeg.org/ffmpeg-scaler.html)
 
 ## Converting MP4 to GIF
 
+Following https://superuser.com/questions/556029/how-do-i-convert-a-video-to-gif-using-ffmpeg-with-reasonable-quality
+
+```
+./node_modules/@ffmpeg-installer/darwin-x64/ffmpeg -i cypress/videos/gif-spec.js.mp4 -ss 00:00:4.285 -t 00:00:5.950 -y -vf "fps=10,scale=960:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 out.gif
+```
+
 ### Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2017
