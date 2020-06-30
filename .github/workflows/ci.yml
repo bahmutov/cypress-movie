@@ -30,7 +30,7 @@ jobs:
           path: cypress/videos
 
       - name: Generate movies 🎥
-        command: node bin/record.js
+        run: node bin/record.js
 
       - name: Semantic Release 🚀
         uses: cycjimmy/semantic-release-action@v2
