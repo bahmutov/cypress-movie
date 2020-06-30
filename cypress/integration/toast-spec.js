@@ -1,9 +1,14 @@
 /// <reference types="cypress" />
 
 describe('Toast', () => {
-  it('shows text', function () {
+  beforeEach(() => {
     cy.visit('/examples/react/')
     cy.get('.new-todo').should('be.visible')
-    cy.toast('Todo App', { duration: 3000, blocking: true })
+  })
+
+  it('shows text 🎥', function () {
+    cy.wait(1000)
+    cy.toast('Todo App', { duration: 4000, blocking: true })
+    cy.wait(2000)
   })
 })
