@@ -19,11 +19,18 @@ Thus, if you have Chrome browser installed, generate full movies in `cypress/vid
 npm run chrome
 ```
 
-## Helpers
+## Commands
+
+You can include these commands from the Cypress support file
+
+```js
+// cypress/support/index.js
+import 'cypress-movie/commands'
+```
 
 ### Arrows
 
-You can draw arrows to point at DOM elements
+You can draw arrows to point at DOM elements using the child `cy.arrow()` command
 
 ```jsx
 // all options are optional
@@ -39,7 +46,6 @@ cy.get('.new-todo').arrow({
 ```
 
 ![Arrow example screenshot](images/arrow.png)
-
 
 See [cypress/integration/arrow-spec.js](cypress/integration/arrow-spec.js) for examples
 
