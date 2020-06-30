@@ -29,7 +29,12 @@ const msToTimestamp = (ms) => {
   return `${hours}:${minutes}:${seconds}.${ms}`
 }
 
-const processTestResults = async (results) => {
+const processTestResults = (processingOptions = {}) => async (results) => {
+  _.defaults(processingOptions, {
+    width: 960,
+    fps: 10,
+  })
+
   if (results.failures) {
     // something went terribly wrong
     console.error(results.message)
@@ -69,7 +74,7 @@ const processTestResults = async (results) => {
           msToTimestamp(test.wallClockDuration),
           '-y',
           '-vf',
-          'fps=10,scale=960:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse',
+          `fps=${processingOptions.fps},scale=${processingOptions.width}:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse`,
           '-loop',
           0,
           outputPath,
@@ -92,9 +97,17 @@ const processTestResults = async (results) => {
 
 const args = arg({
   '--spec': String,
+  '--width': Number,
+  '--fps': Number,
   // Alias
   '-s': '--spec',
+  '-w': '--width',
 })
+
+const processingOptions = {
+  width: args['--width'],
+  fps: args['--fps'],
+}
 
 cypress
   .run({
@@ -102,4 +115,4 @@ cypress
     browser: 'chrome',
     headless: true,
   })
-  .then(processTestResults)
+  .then(processTestResults(processingOptions))
