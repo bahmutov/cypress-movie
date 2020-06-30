@@ -24,8 +24,11 @@
     "debug": "4.1.1"
   },
   "devDependencies": {
-    "tiny-toast": "1.2.0",
-    "semantic-release": "^17.1.1"
+    "execa": "4.0.2",
+    "lodash": "4.17.15",
+    "prettier": "2.0.5",
+    "semantic-release": "^17.1.1",
+    "tiny-toast": "1.2.0"
   },
   "repository": {
     "type": "git",
