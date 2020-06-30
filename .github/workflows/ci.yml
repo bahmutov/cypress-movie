@@ -32,6 +32,12 @@ jobs:
       - name: Generate movies 🎥
         run: node bin/record.js
 
+      - name: Store gifs 🎞
+        uses: actions/upload-artifact@v1
+        with:
+          name: cypress-movies
+          path: cypress/movies
+
       - name: Semantic Release 🚀
         uses: cycjimmy/semantic-release-action@v2
         env:
