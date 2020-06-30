@@ -2,7 +2,9 @@
   "name": "cypress-movie",
   "version": "0.0.0-development",
   "description": "Exploring how one can generate product demo videos from Cypress tests",
-  "main": "index.js",
+  "alias": {
+    "cypress-movie": "bin/record.js"
+  },
   "scripts": {
     "test": "node .",
     "open": "cypress open",
@@ -35,6 +37,7 @@
     "url": "https://github.com/bahmutov/cypress-movie.git"
   },
   "files": [
-    "commands.js"
+    "commands.js",
+    "bin"
   ]
 }

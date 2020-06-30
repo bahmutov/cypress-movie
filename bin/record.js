@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const cypress = require('cypress')
 const fs = require('fs').promises
 const execa = require('execa')
@@ -5,7 +7,6 @@ const path = require('path')
 const _ = require('lodash')
 
 const OUTPUT_FOLDER = path.join('cypress', 'movies')
-console.log('output folder', OUTPUT_FOLDER)
 
 const MOVIE_SYMBOL = '🎥'
 const MOVIE_REGEX = /🎥/g
@@ -26,6 +27,12 @@ const msToTimestamp = (ms) => {
 }
 
 const processTestResults = async (results) => {
+  if (results.failures) {
+    // something went terribly wrong
+    console.error(results.message)
+    process.exit(1)
+  }
+
   await fs.mkdir(OUTPUT_FOLDER, { recursive: true })
 
   results.runs.forEach((run) => {
@@ -33,7 +40,9 @@ const processTestResults = async (results) => {
       if (!run.video) {
         return
       }
-      if (test.title[test.title.length - 1].includes('🎥')) {
+      // if the test name includes the special movie string
+      // then we want to convert this particular test into a movie
+      if (test.title[test.title.length - 1].includes(MOVIE_SYMBOL)) {
         console.log(test)
         console.log('from video', run.video)
         console.log(
@@ -67,6 +76,9 @@ const processTestResults = async (results) => {
       // console.log(test.title, test.videoTimestamp, test.wallClockDuration)
     })
   })
+
+  console.log('exiting with code %d', results.totalFailed)
+  process.exit(results.totalFailed)
 }
 
 cypress
@@ -75,15 +87,4 @@ cypress
     browser: 'chrome',
     headless: true,
   })
-  .then((results) => {
-    return processTestResults(results)
-    // console.log(JSON.stringify(results, null, 2))
-    // for each results.runs
-    //  get tests
-    //    each test
-    //      has title string[]
-    //      videoTimestamp (ms)
-    //      wallClockDuration
-    // we cut and crop the movie for each test nicely.
-    // console.log(JSON.stringify(results.runs, null, 2))
-  })
+  .then(processTestResults)
