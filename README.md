@@ -1,4 +1,5 @@
 # cypress-movie [![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app]
+
 > Exploring how one can generate product demo videos from Cypress tests
 
 Example capturing high resolution video of the test run with additional message pop ups (using [tiny-toast](https://github.com/bahmutov/tiny-toast) library injected on `cy.visit`)
@@ -61,7 +62,26 @@ If you have ideas in what directions this could go - please open an issue in thi
 
 Run project with `DEBUG=cypress-movie` environment variable to see verbose debug logs
 
-##  Trimming video file
+## Gif
+
+You can convert a test if its title contains `🎥` emoji into a Gif.
+
+```
+npx cypress-movie
+# or use --spec name or wildcard pattern
+npx cypress-movie --spec cypress/integration/my-spec.js
+npx cypress-movie --spec 'cypress/integration/movies*-spec.js'
+```
+
+The individual movies will be saved in "cypress/movies" folder.
+
+Example gif from [cypress/integration/arrow-spec.js](cypress/integration/arrow-spec.js)
+
+![Example movie](gifs/arrows-from-different-directions-movie.gif)
+
+Only the test itself is captured, without any hooks.
+
+### Trimming video file
 
 Trying the following command: not working
 
@@ -85,7 +105,7 @@ With scaling output. The original video is 1920x1080 which is 16:9 we can output
 
 See [scaling docs](https://ffmpeg.org/ffmpeg-scaler.html)
 
-## Converting MP4 to GIF
+### Converting MP4 to GIF
 
 Following https://superuser.com/questions/556029/how-do-i-convert-a-video-to-gif-using-ffmpeg-with-reasonable-quality
 
@@ -97,9 +117,9 @@ Following https://superuser.com/questions/556029/how-do-i-convert-a-video-to-gif
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2017
 
-* [@bahmutov](https://twitter.com/bahmutov)
-* [glebbahmutov.com](https://glebbahmutov.com)
-* [blog](https://glebbahmutov.com/blog)
+- [@bahmutov](https://twitter.com/bahmutov)
+- [glebbahmutov.com](https://glebbahmutov.com)
+- [blog](https://glebbahmutov.com/blog)
 
 License: MIT - do anything with the code, but don't blame me if it does not work.
 

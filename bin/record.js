@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const arg = require('arg')
 const cypress = require('cypress')
 const fs = require('fs').promises
 const execa = require('execa')
@@ -10,6 +11,8 @@ const OUTPUT_FOLDER = path.join('cypress', 'movies')
 
 const MOVIE_SYMBOL = '🎥'
 const MOVIE_REGEX = /🎥/g
+
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path
 
 /**
  * Converts ms since the start of the video to
@@ -35,8 +38,8 @@ const processTestResults = async (results) => {
 
   await fs.mkdir(OUTPUT_FOLDER, { recursive: true })
 
-  results.runs.forEach((run) => {
-    run.tests.forEach(async (test) => {
+  for await (let run of results.runs) {
+    for await (let test of run.tests) {
       if (!run.video) {
         return
       }
@@ -56,6 +59,7 @@ const processTestResults = async (results) => {
           .join('-')
           .replace(MOVIE_REGEX, 'movie')
         const outputName = path.join(OUTPUT_FOLDER, testTitles) + '.gif'
+        const outputPath = path.resolve(outputName)
         const ffmpegArguments = [
           '-i',
           run.video,
@@ -68,22 +72,33 @@ const processTestResults = async (results) => {
           'fps=10,scale=960:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse',
           '-loop',
           0,
-          outputName,
+          outputPath,
         ]
-        console.log('ffmpeg arguments: %s', ffmpegArguments.join(' '))
-        await execa('ffmpeg', ffmpegArguments)
+        console.log(
+          'ffmpeg arguments: %s %s',
+          ffmpegPath,
+          ffmpegArguments.join(' '),
+        )
+        const execaResult = await execa(ffmpegPath, ffmpegArguments)
+        // console.log(execaResult)
       }
       // console.log(test.title, test.videoTimestamp, test.wallClockDuration)
-    })
-  })
+    }
+  }
 
   console.log('exiting with code %d', results.totalFailed)
   process.exit(results.totalFailed)
 }
 
+const args = arg({
+  '--spec': String,
+  // Alias
+  '-s': '--spec',
+})
+
 cypress
   .run({
-    spec: 'cypress/integration/gif-spec.js',
+    spec: args['--spec'],
     browser: 'chrome',
     headless: true,
   })
