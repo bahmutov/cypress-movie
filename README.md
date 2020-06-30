@@ -20,6 +20,24 @@ Thus, if you have Chrome browser installed, generate full movies in `cypress/vid
 npm run chrome
 ```
 
+## Options
+
+You can control the plugin via environment variables or `env` object inside [cypress.json](cypress.json) file.
+
+```js
+{
+  "env": {
+    "cypress-movie": {
+      "enabled": true,
+      "width": 1920,
+      "height": 640
+    }
+  }
+}
+```
+
+Note: these options change the _movie_ output, they do not disable individual commands.
+
 ## Commands
 
 You can include these commands from the Cypress support file

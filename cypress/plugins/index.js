@@ -14,6 +14,8 @@ const CDP = require('chrome-remote-interface')
 const debug = require('debug')('cypress-movie')
 const path = require('path')
 const fs = require('fs').promises
+const _ = require('lodash')
+const { runInNewContext } = require('vm')
 
 /**
  * Warning: modifies the input array
@@ -24,8 +26,10 @@ const fs = require('fs').promises
  *    return launchOptions
  *  })
  */
-function ensureRdpPort (args) {
-  const existing = args.find((arg) => arg.slice(0, 23) === '--remote-debugging-port')
+function ensureRdpPort(args) {
+  const existing = args.find(
+    (arg) => arg.slice(0, 23) === '--remote-debugging-port',
+  )
 
   if (existing) {
     return Number(existing.split('=')[1])
@@ -53,10 +57,10 @@ const takeScreenshot = async (options = {}) => {
   debug('options', options)
 
   debug('await client on port %d', port)
-  client = client || await CDP({ port })
+  client = client || (await CDP({ port }))
 
   const result = await client.send('Page.captureScreenshot', {
-    format: 'png'
+    format: 'png',
   })
   debug('took screenshot')
   const decoded = Buffer.from(result.data, 'base64')
@@ -75,9 +79,21 @@ const takeScreenshot = async (options = {}) => {
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+
+  const pluginOptions = _.get(config, 'env.cypress-movie', {})
+  _.defaults(pluginOptions, {
+    enabled: true,
+    width: 1920,
+    height: 1080,
+  })
+  console.log('cypress-movie options %o', pluginOptions)
+  if (!pluginOptions.enabled) {
+    return
+  }
+
   on('task', {
     size,
-    takeScreenshot
+    takeScreenshot,
   })
 
   on('before:browser:launch', (browser = {}, launchOptions) => {
@@ -85,13 +101,15 @@ module.exports = (on, config) => {
     client = null
 
     if (browser.name === 'electron' && browser.isHeadless) {
-      launchOptions.preferences['width'] = 1920;
-      launchOptions.preferences['height'] = 1080;
-      launchOptions.preferences['resizable'] = false;
+      launchOptions.preferences['width'] = pluginOptions.width
+      launchOptions.preferences['height'] = pluginOptions.height
+      launchOptions.preferences['resizable'] = false
       return launchOptions
     }
-    if (['chrome', 'chromium'].includes(browser.name) && true /*browser.isHeadless*/) {
-      launchOptions.args.push('--window-size=1920,1080')
+    if (['chrome', 'chromium'].includes(browser.name) && browser.isHeadless) {
+      launchOptions.args.push(
+        `--window-size=${pluginOptions.width},${pluginOptions.height}`,
+      )
       port = ensureRdpPort(launchOptions.args)
       console.log('ensureRdpPort %d', port)
       debug('Chrome arguments %o', launchOptions.args)
@@ -99,9 +117,7 @@ module.exports = (on, config) => {
     }
   })
 
-  console.log(config)
-
-  config.viewportWidth = 1920
-  config.viewportHeight = 1080
+  config.viewportWidth = pluginOptions.width
+  config.viewportHeight = pluginOptions.height
   return config
 }

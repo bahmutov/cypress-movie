@@ -2,5 +2,12 @@
   "viewportWidth": 1000,
   "viewportHeight": 1000,
   "videoCompression": false,
-  "baseUrl": "http://todomvc.com"
+  "baseUrl": "http://todomvc.com",
+  "env": {
+    "cypress-movie": {
+      "enabled": true,
+      "width": 960,
+      "height": 540
+    }
+  }
 }
