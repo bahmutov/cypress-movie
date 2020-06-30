@@ -4,24 +4,26 @@ describe('Arrows', () => {
   it('shows arrow pointing at the element (non-blocking)', function () {
     cy.visit('/examples/react/')
 
-    cy.get('.new-todo').arrow({
-      duration: 3000,
-      strokeWidth: 3
-    })
-    .type('See this arrow?')
+    cy.get('.new-todo')
+      .arrow({
+        duration: 3000,
+        strokeWidth: 3,
+      })
+      .type('See this arrow?')
   })
 
   it('shows arrow pointing at the element (blocking)', function () {
     cy.visit('/examples/react/')
 
-    cy.get('.new-todo').arrow({
-      duration: 3000,
-      blocking: true
-    })
-    .type('Did you see an arrow?!')
+    cy.get('.new-todo')
+      .arrow({
+        duration: 3000,
+        blocking: true,
+      })
+      .type('Did you see an arrow?!')
   })
 
-  it('from different directions', function () {
+  it('from different directions 🎥', function () {
     cy.visit('/examples/react/')
 
     cy.get('.new-todo')
@@ -33,7 +35,7 @@ describe('Arrows', () => {
       offsetX: -10,
       offsetY: 20,
       blocking: true,
-      color: 'blue'
+      color: 'blue',
     })
 
     cy.contains('.filters li', 'Active').arrow({
@@ -50,7 +52,7 @@ describe('Arrows', () => {
       blocking: true,
       offsetX: 50,
       offsetY: 20,
-      color: '#ff00ff'
+      color: '#ff00ff',
     })
   })
 })

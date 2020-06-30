@@ -2,7 +2,9 @@
   "name": "cypress-movie",
   "version": "0.0.0-development",
   "description": "Exploring how one can generate product demo videos from Cypress tests",
-  "main": "index.js",
+  "alias": {
+    "cypress-movie": "bin/record.js"
+  },
   "scripts": {
     "test": "node .",
     "open": "cypress open",
@@ -19,12 +21,19 @@
   "private": false,
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "1.0.20",
+    "arg": "4.1.3",
     "chrome-remote-interface": "0.28.2",
-    "cypress": "4.9.0",
-    "debug": "4.1.1"
+    "debug": "4.1.1",
+    "execa": "4.0.2",
+    "lodash": "4.17.15",
+    "tiny-toast": "1.2.0"
+  },
+  "peerDependencies": {
+    "cypress": "4"
   },
   "devDependencies": {
-    "tiny-toast": "1.2.0",
+    "cypress": "4.9.0",
+    "prettier": "2.0.5",
     "semantic-release": "^17.1.1"
   },
   "repository": {
@@ -32,6 +41,7 @@
     "url": "https://github.com/bahmutov/cypress-movie.git"
   },
   "files": [
-    "commands.js"
+    "commands.js",
+    "bin"
   ]
 }

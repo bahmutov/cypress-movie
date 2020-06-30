@@ -1,6 +1,7 @@
 node_modules/
 cypress/screenshots
 cypress/videos
+cypress/movies
 out.mp4
 size.json
 clipped.mp4
