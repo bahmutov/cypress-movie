@@ -1,6 +1,6 @@
 {
   "name": "cypress-movie",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Exploring how one can generate product demo videos from Cypress tests",
   "main": "index.js",
   "scripts": {
@@ -10,12 +10,13 @@
     "chrome": "cypress run --browser chrome --headless",
     "crop": "./node_modules/@ffmpeg-installer/darwin-x64/ffmpeg -i cypress/videos/spec.js.mp4 -filter:v 'crop=830:674:450:46' -y out.mp4",
     "clip": "./node_modules/@ffmpeg-installer/darwin-x64/ffmpeg -i out.mp4 -ss 3 -t 00:00:20.800 -acodec copy -vcodec copy -y clipped.mp4",
-    "ffmpeg": "node -e \"console.log(require('@ffmpeg-installer/ffmpeg').path)\""
+    "ffmpeg": "node -e \"console.log(require('@ffmpeg-installer/ffmpeg').path)\"",
+    "semantic-release": "semantic-release"
   },
   "keywords": [],
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com> (https://glebbahmutov.com/)",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "1.0.20",
     "chrome-remote-interface": "0.28.2",
@@ -23,6 +24,11 @@
     "debug": "4.1.1"
   },
   "devDependencies": {
-    "tiny-toast": "1.2.0"
+    "tiny-toast": "1.2.0",
+    "semantic-release": "^17.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bahmutov/cypress-movie.git"
   }
 }
