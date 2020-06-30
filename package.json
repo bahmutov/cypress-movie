@@ -42,6 +42,7 @@
   },
   "files": [
     "commands.js",
+    "src",
     "bin"
   ]
 }
