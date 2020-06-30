@@ -1,6 +1,8 @@
 const cypress = require('cypress')
 
-cypress.run()
+cypress.run({
+  spec: 'cypress/integration/gif-spec.js'
+})
   .then(results => {
     // console.log(JSON.stringify(results, null, 2))
 
@@ -14,9 +16,10 @@ cypress.run()
 
     results.runs.forEach(run => {
       run.tests.forEach(test => {
-        console.log(test.title, test.videoTimestamp, test.wallClockDuration)
+        console.log(test)
+        // console.log(test.title, test.videoTimestamp, test.wallClockDuration)
       })
     })
 
-    // console.log(JSON.stringify(results.runs, null, 2))
+    console.log(JSON.stringify(results.runs, null, 2))
   })
