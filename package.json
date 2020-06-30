@@ -30,5 +30,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/bahmutov/cypress-movie.git"
-  }
+  },
+  "files": [
+    "commands.js"
+  ]
 }
