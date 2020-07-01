@@ -1,3 +1,4 @@
+// @ts-check
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //
@@ -52,12 +53,26 @@ const size = (x) => {
 
 // see _screenshotTask
 // in https://github.com/puppeteer/puppeteer/blob/main/src/common/Page.ts
-const takeScreenshot = async (options = {}) => {
+const initTakingScreenshot = (width = 1920, height = 1080) => async (
+  options = {},
+) => {
   debug('taking screenshot')
-  debug('options', options)
+  debug('options %o, %o', { width, height }, options)
 
   debug('await client on port %d', port)
   client = client || (await CDP({ port }))
+
+  const device = {
+    width,
+    height,
+    deviceScaleFactor: 1,
+    mobile: false,
+    fitWindow: false,
+  }
+
+  // set viewport and visible size
+  await client.send('Emulation.setDeviceMetricsOverride', device)
+  await client.send('Emulation.setVisibleSize', { width, height })
 
   const result = await client.send('Page.captureScreenshot', {
     format: 'png',
@@ -91,6 +106,10 @@ module.exports = (on, config) => {
     return
   }
 
+  const takeScreenshot = initTakingScreenshot(
+    pluginOptions.width,
+    pluginOptions.height,
+  )
   on('task', {
     size,
     takeScreenshot,
@@ -107,11 +126,22 @@ module.exports = (on, config) => {
       return launchOptions
     }
     if (['chrome', 'chromium'].includes(browser.name) && browser.isHeadless) {
+      // TODO replace existing argument if found
+      // we should check if there is already an argument "--window-size"
+      // and if it is found, replace it
       launchOptions.args.push(
         `--window-size=${pluginOptions.width},${pluginOptions.height}`,
       )
+      // movies and screenshots look better without scrollbars
+      launchOptions.args.push('--hide-scrollbars')
+
       port = ensureRdpPort(launchOptions.args)
-      console.log('ensureRdpPort %d', port)
+      console.log(
+        'ensureRdpPort %d resolution %dx%d',
+        port,
+        pluginOptions.width,
+        pluginOptions.height,
+      )
       debug('Chrome arguments %o', launchOptions.args)
       return launchOptions
     }
