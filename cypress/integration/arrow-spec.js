@@ -29,6 +29,7 @@ describe('Arrows', () => {
     cy.get('.new-todo')
       .type('Write test{enter}')
       .type('Render test as demo movie{enter}')
+      .screenshot('before-arrows', { capture: 'viewport' })
 
     cy.contains('.filters li', 'All').arrow({
       duration: 1000,
