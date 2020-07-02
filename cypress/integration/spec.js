@@ -54,7 +54,7 @@ describe('Todo app', () => {
     addTodo('second todo')
 
     // cy.wait(1000)
-    cy.contains('ul.todo-list li', 'second todo').find('input.toggle').check()
+    cy.contains('ul.todo-list li', 'second todo').find('input.toggle').click()
     cy.toast('Checked 1 todo')
     scroll()
 
