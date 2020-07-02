@@ -16,6 +16,7 @@ const debug = require('debug')('cypress-movie')
 const path = require('path')
 const fs = require('fs').promises
 const _ = require('lodash')
+const sharp = require('sharp')
 const { runInNewContext } = require('vm')
 
 /**
@@ -53,14 +54,16 @@ const size = (x) => {
 
 // see _screenshotTask
 // in https://github.com/puppeteer/puppeteer/blob/main/src/common/Page.ts
-const initTakingScreenshot = (commonOptions) => async (options = {}) => {
+const initTakingScreenshot = (commonOptions) => async (
+  screenshotOptions = {},
+) => {
   _.defaults(commonOptions, {
     width: 1920,
     height: 1080,
     projectRoot: process.cwd(),
   })
   debug('taking screenshot')
-  debug('options %o, %o', commonOptions, options)
+  debug('options %o, %o', commonOptions, screenshotOptions)
 
   debug('await client on port %d', port)
   client = client || (await CDP({ port }))
@@ -85,13 +88,55 @@ const initTakingScreenshot = (commonOptions) => async (options = {}) => {
   })
   debug('took screenshot')
   const decoded = Buffer.from(result.data, 'base64')
-  debug('joining folder', options.screenshotFolder)
 
-  const outputFolder = path.join(options.screenshotFolder, options.spec.name)
-  const screenshotFilename = path.join(outputFolder, options.name + '.png')
+  debug('joining folder', screenshotOptions.screenshotFolder)
+  const outputFolder = path.join(
+    screenshotOptions.screenshotFolder,
+    screenshotOptions.spec.name,
+  )
+  const screenshotFilename = path.join(
+    outputFolder,
+    screenshotOptions.name + '.png',
+  )
   debug('saving %s', screenshotFilename)
   await fs.mkdir(outputFolder, { recursive: true })
-  await fs.writeFile(screenshotFilename, decoded)
+
+  let outputWidth = commonOptions.width
+  let outputHeight = commonOptions.height
+
+  if (screenshotOptions.options.maxWidth) {
+    debug(
+      'resizing the screenshot to maxWidth %d',
+      screenshotOptions.options.maxWidth,
+    )
+    await new Promise((resolve, reject) => {
+      sharp(decoded)
+        // @ts-ignore
+        .resize(screenshotOptions.options.maxWidth)
+        .toFile(screenshotFilename, (err, info) => {
+          if (err) {
+            debug(err)
+            return reject(err)
+          }
+          // info is an object like
+          // info {
+          //   format: 'png',
+          //   width: 800,
+          //   height: 450,
+          //   channels: 4,
+          //   premultiplied: true,
+          //   size: 40948
+          // }
+          debug('resized image info %o', info)
+          outputWidth = info.width
+          outputHeight = info.height
+          resolve()
+        })
+    })
+  } else {
+    debug('saving full screenshot')
+    await fs.writeFile(screenshotFilename, decoded)
+  }
   debug('saved %s', screenshotFilename)
 
   const screenshotRelative = path.relative(
@@ -101,8 +146,8 @@ const initTakingScreenshot = (commonOptions) => async (options = {}) => {
   console.log(
     '  Screenshot %s %dx%d',
     screenshotRelative,
-    commonOptions.width,
-    commonOptions.height,
+    outputWidth,
+    outputHeight,
   )
 
   return screenshotFilename
