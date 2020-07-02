@@ -53,18 +53,21 @@ const size = (x) => {
 
 // see _screenshotTask
 // in https://github.com/puppeteer/puppeteer/blob/main/src/common/Page.ts
-const initTakingScreenshot = (width = 1920, height = 1080) => async (
-  options = {},
-) => {
+const initTakingScreenshot = (commonOptions) => async (options = {}) => {
+  _.defaults(commonOptions, {
+    width: 1920,
+    height: 1080,
+    projectRoot: process.cwd(),
+  })
   debug('taking screenshot')
-  debug('options %o, %o', { width, height }, options)
+  debug('options %o, %o', commonOptions, options)
 
   debug('await client on port %d', port)
   client = client || (await CDP({ port }))
 
   const device = {
-    width,
-    height,
+    width: commonOptions.width,
+    height: commonOptions.height,
     deviceScaleFactor: 1,
     mobile: false,
     fitWindow: false,
@@ -72,7 +75,10 @@ const initTakingScreenshot = (width = 1920, height = 1080) => async (
 
   // set viewport and visible size
   await client.send('Emulation.setDeviceMetricsOverride', device)
-  await client.send('Emulation.setVisibleSize', { width, height })
+  await client.send('Emulation.setVisibleSize', {
+    width: commonOptions.width,
+    height: commonOptions.height,
+  })
 
   const result = await client.send('Page.captureScreenshot', {
     format: 'png',
@@ -87,6 +93,17 @@ const initTakingScreenshot = (width = 1920, height = 1080) => async (
   await fs.mkdir(outputFolder, { recursive: true })
   await fs.writeFile(screenshotFilename, decoded)
   debug('saved %s', screenshotFilename)
+
+  const screenshotRelative = path.relative(
+    commonOptions.projectRoot,
+    screenshotFilename,
+  )
+  console.log(
+    '  Screenshot %s %dx%d',
+    screenshotRelative,
+    commonOptions.width,
+    commonOptions.height,
+  )
 
   return screenshotFilename
 }
@@ -106,10 +123,11 @@ module.exports = (on, config) => {
     return
   }
 
-  const takeScreenshot = initTakingScreenshot(
-    pluginOptions.width,
-    pluginOptions.height,
-  )
+  const takeScreenshot = initTakingScreenshot({
+    width: pluginOptions.width,
+    height: pluginOptions.height,
+    projectRoot: config.projectRoot,
+  })
   on('task', {
     size,
     takeScreenshot,

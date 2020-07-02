@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 describe('Screenshot examples', () => {
-
-  const addTodo = text => cy.get('.new-todo').type(`${text}{enter}`, { delay: 100 })
+  const addTodo = (text) =>
+    cy.get('.new-todo').type(`${text}{enter}`, { delay: 100 })
 
   it('adds and removes completed todos', function () {
     cy.visit('/examples/react/')
@@ -13,7 +13,6 @@ describe('Screenshot examples', () => {
 
     addTodo('This is an example')
 
-    cy.screenshot('finish', { capture: 'viewport' })
-
+    cy.screenshot('finish', { capture: 'viewport', maxWidth: 800 })
   })
 })
