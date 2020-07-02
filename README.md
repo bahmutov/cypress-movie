@@ -75,7 +75,7 @@ cy.toast('Filters: Active / Completed / All', {
 
 You can draw arrows to point at DOM elements using the child `cy.arrow()` command
 
-```jsx
+```js
 // all options are optional
 cy.get('.new-todo').arrow({
   duration: 3000,
@@ -88,7 +88,16 @@ cy.get('.new-todo').arrow({
 })
 ```
 
-![Arrow example screenshot](images/arrow.png)
+You can add a text label to the arrow
+
+```js
+cy.get('.new-todo').arrow({
+  text: 'Completed todos only',
+  textSize: '5vh',
+})
+```
+
+![Arrow gif](gifs/arrows-from-different-directions-movie.gif)
 
 See [cypress/integration/arrow-spec.js](cypress/integration/arrow-spec.js) for examples
 

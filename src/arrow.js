@@ -8,7 +8,7 @@ function getArrowSvg(c_e1, c_e2, options = {}) {
   console.log('arrow options', options)
   // arrow from https://vanseodesign.com/web-design/svg-markers/
   const arrsvg = `
-    <svg id="arrow"
+    <svg id="arrow-svg"
       style="position:absolute; top:0; left:0; margin:0; width:99.8%; height:99.9%;">
       <defs>
         <marker id="arrow-marker" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
@@ -41,6 +41,7 @@ const arrowCommand = ($el, options = {}) => {
     color: 'cyan',
     strokeWidth: 5,
     color: 'orange',
+    textSize: '4vh',
   })
 
   // allow "text" and "label" to be synonyms
@@ -103,7 +104,21 @@ const arrowCommand = ($el, options = {}) => {
     color: options.color,
   })
   // console.log('arrow svg', arrowSvg)
-  Cypress.$(body).append(arrowSvg)
+
+  let textHtml = ''
+  if (options.text) {
+    textHtml = `
+      <div style="position: absolute; left: ${from.x}px; top: ${from.y}px; color:${options.color}; font-size: ${options.textSize}; padding: 20px 0; transform: translate(-50%, 0);">
+      ${options.text}</div>
+    `
+  }
+  const arrowHtml = `
+    <div id="arrow">
+      ${arrowSvg}
+      ${textHtml}
+    </div>
+  `
+  Cypress.$(body).append(arrowHtml)
 
   // remove the arrow after "duration" ms
   setTimeout(() => {
