@@ -71,6 +71,23 @@ cy.toast('Filters: Active / Completed / All', {
 
 ![Toast image](images/toast.png)
 
+### Text
+
+You can place a text at the bottom of the page
+
+```javascript
+// all parameters are optional
+cy.text('This is some text', {
+  duration: 2000, // how long the text should be there
+  blocking: true, // wait for the text to hide
+  textSize: '20pt', // CSS text height
+})
+```
+
+![Text command](gifs/text.gif)
+
+See [cypress/integration/text-spec.js](cypress/integration/text-spec.js)
+
 ### Arrows
 
 You can draw arrows to point at DOM elements using the child `cy.arrow()` command
