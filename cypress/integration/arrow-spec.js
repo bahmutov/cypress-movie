@@ -23,13 +23,13 @@ describe('Arrows', () => {
       .type('Did you see an arrow?!')
   })
 
-  it('from different directions 🎥', function () {
+  it.only('from different directions 🎥', function () {
     cy.visit('/examples/react/')
 
     cy.get('.new-todo')
       .type('Write test{enter}')
       .type('Render test as demo movie{enter}')
-      .screenshot('before-arrows', { capture: 'viewport' })
+    // .screenshot('before-arrows', { capture: 'viewport' })
 
     cy.contains('.filters li', 'All').arrow({
       duration: 1000,
@@ -37,6 +37,7 @@ describe('Arrows', () => {
       offsetY: 20,
       blocking: true,
       color: 'blue',
+      text: 'Show all todos',
     })
 
     cy.contains('.filters li', 'Active').arrow({
@@ -45,6 +46,7 @@ describe('Arrows', () => {
       offsetY: 20,
       blocking: true,
       color: 'green',
+      label: 'Unfinished todos only',
     })
 
     cy.contains('.filters li', 'Completed').arrow({
@@ -54,6 +56,7 @@ describe('Arrows', () => {
       offsetX: 50,
       offsetY: 20,
       color: '#ff00ff',
+      text: 'Completed todos only',
     })
   })
 })

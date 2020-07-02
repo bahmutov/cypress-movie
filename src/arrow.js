@@ -42,8 +42,21 @@ const arrowCommand = ($el, options = {}) => {
     strokeWidth: 5,
     color: 'orange',
   })
+
+  // allow "text" and "label" to be synonyms
+  options.text = options.text || options.label
+
   // console.log('options', options)
-  cy.log('**arrow**')
+  const arrowEmojis = {
+    bottomLeft: '↗️',
+    bottomRight: '↖️',
+  }
+  let arrowEmoji = arrowEmojis[options.pointAt] || '🏹'
+  if (options.text) {
+    cy.log(`${arrowEmoji} ${options.text}`)
+  } else {
+    cy.log(arrowEmoji)
+  }
   const r = $el[0].getBoundingClientRect()
   // console.log('bounding box', r)
 
