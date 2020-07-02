@@ -138,12 +138,14 @@ Only the test itself is captured, without any hooks.
 You can pass a few arguments to control the output GIF
 
 ```shell
-npx cypress-movie --width 640 --fps 30
+npx cypress-movie --width 640 --fps 30 --format gif
 # --width is the output gif resolution, pixels
 #     height will be set automatically to preserve the aspect ratio
 #     default 960
 # --fps is frames per second in the output gif
 #     default 10
+# --format is gif or mp4
+#     default gif
 ```
 
 ### Small print

@@ -33,6 +33,7 @@ const processTestResults = (processingOptions = {}) => async (results) => {
   _.defaults(processingOptions, {
     width: 960,
     fps: 10,
+    format: 'gif',
   })
 
   if (results.failures) {
@@ -63,22 +64,48 @@ const processTestResults = (processingOptions = {}) => async (results) => {
           .map(_.kebabCase)
           .join('-')
           .replace(MOVIE_REGEX, 'movie')
-        const outputName = path.join(OUTPUT_FOLDER, testTitles) + '.gif'
+
+        // gif or mp4
+        const extension = '.' + processingOptions.format
+        const outputName = path.join(OUTPUT_FOLDER, testTitles) + extension
         const outputPath = path.resolve(outputName)
-        const ffmpegArguments = [
-          '-i',
-          run.video,
-          '-ss',
-          msToTimestamp(test.videoTimestamp),
-          '-t',
-          msToTimestamp(test.wallClockDuration),
-          '-y',
-          '-vf',
-          `fps=${processingOptions.fps},scale=${processingOptions.width}:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse`,
-          '-loop',
-          0,
-          outputPath,
-        ]
+
+        let ffmpegArguments
+
+        // video transform argument
+        if (processingOptions.format === 'gif') {
+          ffmpegArguments = [
+            '-i',
+            run.video,
+            '-ss',
+            msToTimestamp(test.videoTimestamp),
+            '-t',
+            msToTimestamp(test.wallClockDuration),
+            '-y',
+            '-vf',
+            `fps=${processingOptions.fps},scale=${processingOptions.width}:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse`,
+            '-loop',
+            0,
+            outputPath,
+          ]
+        } else if (processingOptions.format === 'mp4') {
+          ffmpegArguments = [
+            '-i',
+            run.video,
+            '-ss',
+            msToTimestamp(test.videoTimestamp),
+            '-t',
+            msToTimestamp(test.wallClockDuration),
+            '-y',
+            '-vf',
+            `fps=${processingOptions.fps},scale=${processingOptions.width}:-1:flags=lanczos`,
+            '-loop',
+            0,
+            outputPath,
+          ]
+        } else {
+          throw new Error(`Unknown output format ${processingOptions.format}`)
+        }
         console.log(
           'ffmpeg arguments: %s %s',
           ffmpegPath,
@@ -99,14 +126,17 @@ const args = arg({
   '--spec': String,
   '--width': Number,
   '--fps': Number,
+  '--format': String,
   // Alias
   '-s': '--spec',
   '-w': '--width',
+  '-f': '--format',
 })
 
 const processingOptions = {
   width: args['--width'],
   fps: args['--fps'],
+  format: args['--format'],
 }
 
 cypress
