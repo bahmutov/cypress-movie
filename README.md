@@ -10,6 +10,18 @@ The movies are generated at 1920x1080, the headless browser is set to the same s
 
 Related video: [WeAreDevs presentation](https://youtu.be/p38bIMC-YOU?t=1949) - start watching at minute 32. Presentation slides at [slides.com/bahmutov/e2e-in-the-future](https://slides.com/bahmutov/e2e-in-the-future).
 
+## Install
+
+Requires Node v10+
+
+This project requires native extensions to perform image resizing, thus in your project's `cypress.json` file should include
+
+```json
+{
+  "nodeVersion": "system"
+}
+```
+
 ## Details
 
 When using `cypress run` the headless browser is set to use 1920x1080 resolution from the [cypress/plugins/index.js](cypress/plugins/index.js) file. The viewport width and height are also set to the same values using the config object. During the test run, the Command Log is hidden before the test, see [cypress/support/index.js](cypress/support/index.js) file.
@@ -79,6 +91,16 @@ cy.get('.new-todo').arrow({
 ![Arrow example screenshot](images/arrow.png)
 
 See [cypress/integration/arrow-spec.js](cypress/integration/arrow-spec.js) for examples
+
+### cy.screenshot
+
+This module overwrites [cy.screenshot](https://on.cypress.io/screenshot) command. If you are using `cy.screenshot(..., {capture: 'viewport'})` with headless Chrome, then Chrome Debugger Protocol will be used to take the full resolution screenshot. You can resize the output image while preserving the aspect ratio by adding an optional `maxWidth` parameter.
+
+```js
+cy.screenshot('finish', { capture: 'viewport', maxWidth: 800 })
+```
+
+See [cypress/integration/screenshot-spec.js](cypress/integration/screenshot-spec.js) for example.
 
 ## Continuous Integration
 

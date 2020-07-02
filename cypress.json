@@ -3,6 +3,7 @@
   "viewportHeight": 1000,
   "videoCompression": false,
   "baseUrl": "http://todomvc.com",
+  "nodeVersion": "system",
   "env": {
     "cypress-movie": {
       "enabled": true,
