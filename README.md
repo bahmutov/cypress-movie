@@ -10,6 +10,18 @@ The movies are generated at 1920x1080, the headless browser is set to the same s
 
 Related video: [WeAreDevs presentation](https://youtu.be/p38bIMC-YOU?t=1949) - start watching at minute 32. Presentation slides at [slides.com/bahmutov/e2e-in-the-future](https://slides.com/bahmutov/e2e-in-the-future).
 
+## Install
+
+Requires Node v10+
+
+This project requires native extensions to perform image resizing, thus in your project's `cypress.json` file should include
+
+```json
+{
+  "nodeVersion": "system"
+}
+```
+
 ## Details
 
 When using `cypress run` the headless browser is set to use 1920x1080 resolution from the [cypress/plugins/index.js](cypress/plugins/index.js) file. The viewport width and height are also set to the same values using the config object. During the test run, the Command Log is hidden before the test, see [cypress/support/index.js](cypress/support/index.js) file.
@@ -59,11 +71,28 @@ cy.toast('Filters: Active / Completed / All', {
 
 ![Toast image](images/toast.png)
 
+### Text
+
+You can place a text at the bottom of the page
+
+```javascript
+// all parameters are optional
+cy.text('This is some text', {
+  duration: 2000, // how long the text should be there
+  blocking: true, // wait for the text to hide
+  textSize: '20pt', // CSS text height
+})
+```
+
+![Text command](gifs/text.gif)
+
+See [cypress/integration/text-spec.js](cypress/integration/text-spec.js)
+
 ### Arrows
 
 You can draw arrows to point at DOM elements using the child `cy.arrow()` command
 
-```jsx
+```js
 // all options are optional
 cy.get('.new-todo').arrow({
   duration: 3000,
@@ -76,9 +105,28 @@ cy.get('.new-todo').arrow({
 })
 ```
 
-![Arrow example screenshot](images/arrow.png)
+You can add a text label to the arrow
+
+```js
+cy.get('.new-todo').arrow({
+  text: 'Completed todos only',
+  textSize: '5vh',
+})
+```
+
+![Arrow gif](gifs/arrows-from-different-directions-movie.gif)
 
 See [cypress/integration/arrow-spec.js](cypress/integration/arrow-spec.js) for examples
+
+### cy.screenshot
+
+This module overwrites [cy.screenshot](https://on.cypress.io/screenshot) command. If you are using `cy.screenshot(..., {capture: 'viewport'})` with headless Chrome, then Chrome Debugger Protocol will be used to take the full resolution screenshot. You can resize the output image while preserving the aspect ratio by adding an optional `maxWidth` parameter.
+
+```js
+cy.screenshot('finish', { capture: 'viewport', maxWidth: 800 })
+```
+
+See [cypress/integration/screenshot-spec.js](cypress/integration/screenshot-spec.js) for example.
 
 ## Continuous Integration
 
@@ -116,12 +164,14 @@ Only the test itself is captured, without any hooks.
 You can pass a few arguments to control the output GIF
 
 ```shell
-npx cypress-movie --width 640 --fps 30
+npx cypress-movie --width 640 --fps 30 --format gif
 # --width is the output gif resolution, pixels
 #     height will be set automatically to preserve the aspect ratio
 #     default 960
 # --fps is frames per second in the output gif
 #     default 10
+# --format is gif or mp4
+#     default gif
 ```
 
 ### Small print

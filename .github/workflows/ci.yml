@@ -29,10 +29,19 @@ jobs:
           name: cypress-videos
           path: cypress/videos
 
-      - name: Generate movies 🎥
-        run: node bin/record.js
+      - name: Generate gif movies 🎥
+        run: |
+          node bin/record.js \
+          --width 1280 --fps 30 --format gif \
+          --spec cypress/integration/gif-spec.js
 
-      - name: Store gifs 🎞
+      - name: Generate mp4 movies 🎥
+        run: |
+          node bin/record.js \
+          --width 1280 --format mp4 \
+          --spec cypress/integration/gif-spec.js
+
+      - name: Store movies 🎞
         uses: actions/upload-artifact@v1
         with:
           name: cypress-movies
