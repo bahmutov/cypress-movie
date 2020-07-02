@@ -15,6 +15,7 @@ const CDP = require('chrome-remote-interface')
 const debug = require('debug')('cypress-movie')
 const path = require('path')
 const fs = require('fs').promises
+// @ts-ignore
 const _ = require('lodash')
 const sharp = require('sharp')
 const { runInNewContext } = require('vm')

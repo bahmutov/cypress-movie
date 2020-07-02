@@ -1,9 +1,10 @@
 /// <reference types="cypress" />
 
 describe('Arrows', () => {
+  beforeEach(() => {
+    cy.visit('/examples/react/').wait(1000) // let the site load
+  })
   it('shows arrow pointing at the element (non-blocking)', function () {
-    cy.visit('/examples/react/')
-
     cy.get('.new-todo')
       .arrow({
         duration: 3000,
@@ -13,8 +14,6 @@ describe('Arrows', () => {
   })
 
   it('shows arrow pointing at the element (blocking)', function () {
-    cy.visit('/examples/react/')
-
     cy.get('.new-todo')
       .arrow({
         duration: 3000,
@@ -24,12 +23,10 @@ describe('Arrows', () => {
   })
 
   it('from different directions 🎥', function () {
-    cy.visit('/examples/react/')
-
     cy.get('.new-todo')
       .type('Write test{enter}')
       .type('Render test as demo movie{enter}')
-      .screenshot('before-arrows', { capture: 'viewport' })
+    // .screenshot('before-arrows', { capture: 'viewport' })
 
     cy.contains('.filters li', 'All').arrow({
       duration: 1000,
@@ -37,6 +34,7 @@ describe('Arrows', () => {
       offsetY: 20,
       blocking: true,
       color: 'blue',
+      text: 'Show all todos',
     })
 
     cy.contains('.filters li', 'Active').arrow({
@@ -45,15 +43,20 @@ describe('Arrows', () => {
       offsetY: 20,
       blocking: true,
       color: 'green',
+      label: 'Unfinished todos only',
     })
 
-    cy.contains('.filters li', 'Completed').arrow({
-      duration: 2000,
-      pointAt: 'bottomRight',
-      blocking: true,
-      offsetX: 50,
-      offsetY: 20,
-      color: '#ff00ff',
-    })
+    cy.contains('.filters li', 'Completed')
+      .arrow({
+        duration: 3000,
+        pointAt: 'bottomRight',
+        blocking: true,
+        offsetX: 50,
+        offsetY: 20,
+        color: '#ff00ff',
+        text: 'Completed todos only',
+        textSize: '5vh',
+      })
+      .wait(1000)
   })
 })
