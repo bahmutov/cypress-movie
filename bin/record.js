@@ -125,7 +125,7 @@ const processingOptions = {
   format: args['--format'],
 }
 
-const browserPath = (args['--browser'] !== undefined) ? args['--browser'] : 'chrome';
+const browserPath = args['--browser'] || 'chrome';
 
 cypress
   .run({
