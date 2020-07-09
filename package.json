@@ -2,7 +2,7 @@
   "name": "cypress-movie",
   "version": "0.0.0-development",
   "description": "Exploring how one can generate product demo videos from Cypress tests",
-  "alias": {
+  "bin": {
     "cypress-movie": "bin/record.js"
   },
   "scripts": {
