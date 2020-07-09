@@ -6,6 +6,7 @@ const fs = require('fs').promises
 const execa = require('execa')
 const path = require('path')
 const _ = require('lodash')
+const { msToTimestamp } = require('./utils')
 
 const OUTPUT_FOLDER = path.join('cypress', 'movies')
 
@@ -13,21 +14,6 @@ const MOVIE_SYMBOL = '🎥'
 const MOVIE_REGEX = /🎥/g
 
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path
-
-/**
- * Converts ms since the start of the video to
- * what ffmpeg expects HH:MM:SS.mmm
- */
-const msToTimestamp = (ms) => {
-  const hours = Math.floor(ms / (3600 * 1000))
-  ms = ms % (3600 * 1000)
-  const minutes = Math.floor(ms / (60 * 1000))
-  ms = ms % (60 * 1000)
-  const seconds = Math.floor(ms / 1000)
-  ms = ms % 1000
-
-  return `${hours}:${minutes}:${seconds}.${ms}`
-}
 
 const processTestResults = (processingOptions = {}) => async (results) => {
   _.defaults(processingOptions, {
