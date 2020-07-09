@@ -53,7 +53,8 @@ const processTestResults = (processingOptions = {}) => async (results) => {
 
         // gif or mp4
         const extension = '.' + processingOptions.format
-        const outputName = path.join(OUTPUT_FOLDER, testTitles) + extension
+        const specName = _.last(run.spec.name.split('/'))
+        const outputName = path.join(OUTPUT_FOLDER, specName + '_' + testTitles) + extension
         const outputPath = path.resolve(outputName)
 
         let ffmpegArguments
