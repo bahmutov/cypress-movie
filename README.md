@@ -14,6 +14,15 @@ Related video: [WeAreDevs presentation](https://youtu.be/p38bIMC-YOU?t=1949) - s
 
 Requires Node v10+
 
+```shell
+# using NPM
+$ npm i -D cypress-movie
+# using Yarn
+$ yarn add -D cypress-movie
+```
+
+Now you should be able to use `cypress-movie` command, see [Movies](#movies)
+
 This project requires native extensions to perform image resizing, thus in your project's `cypress.json` file should include
 
 ```json
@@ -140,9 +149,9 @@ If you have ideas in what directions this could go - please open an issue in thi
 
 Run project with `DEBUG=cypress-movie` environment variable to see verbose debug logs
 
-## Gif
+## Movies
 
-You can convert a test if its title contains `🎥` emoji into a Gif.
+You can record an individual test into a Gif or an MP4 file. Run all tests or a single spec using `cypress-movie` command; it will run all tests, but will extract every test if its title contains the `🎥` emoji.
 
 ```
 npx cypress-movie
