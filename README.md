@@ -181,7 +181,7 @@ npx cypress-movie --width 640 --fps 30 --format gif
 #     default 10
 # --format is gif or mp4
 #     default gif
-# --browser is browser binary path
+# --browser is browser binary path or name like "chrome", "firefox", "electron"
 #     default chrome
 ```
 
