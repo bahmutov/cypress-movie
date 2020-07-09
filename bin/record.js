@@ -22,7 +22,7 @@ const msToTimestamp = (ms) => {
   const hours = Math.floor(ms / (3600 * 1000))
   ms = ms % (3600 * 1000)
   const minutes = Math.floor(ms / (60 * 1000))
-  ms = ms % (3600 * 1000)
+  ms = ms % (60 * 1000)
   const seconds = Math.floor(ms / 1000)
   ms = ms % 1000
 
