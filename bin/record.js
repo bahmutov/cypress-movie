@@ -139,10 +139,12 @@ const processingOptions = {
   format: args['--format'],
 }
 
+const browserPath = (args['--browser'] !== undefined) ? args['--browser'] : 'chrome';
+
 cypress
   .run({
     spec: args['--spec'],
-    browser: 'chrome',
+    browser: browserPath,
     headless: true,
   })
   .then(processTestResults(processingOptions))
