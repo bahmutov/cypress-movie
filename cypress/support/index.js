@@ -2,10 +2,16 @@
 
 import '../../commands'
 import { slowDownCommands } from '../../src/slow-down'
+import { cursorTrackingCommands } from '../../src/cursor-tracking'
 
-slowDownCommands()
+if (Cypress.env()['cypress-movie'].cursorTracking) {
+  cursorTrackingCommands()
+} else {
+  slowDownCommands()
+}
 
 before(() => {
+
   if (Cypress.browser.isHeadless) {
     cy.clearViewport()
   }

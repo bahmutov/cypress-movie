@@ -5,7 +5,6 @@ before(() => {
     log: false,
   }).then((css) => {
     cursorCss = css
-    console.log('done')
   })
 })
 
