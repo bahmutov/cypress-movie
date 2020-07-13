@@ -7,7 +7,7 @@
  */
 export const slowDownCommands = (pauseMs = 1000) => {
   // could be all commands
-  // const commandOverwrites = Object.keys(Cypress.Commands._commands)
+  // const commandsToSlowDown = Object.keys(Cypress.Commands._commands)
   const commandsToSlowDown = ['click', 'check']
   commandsToSlowDown.forEach((commandName) => {
     Cypress.Commands.overwrite(commandName, (commandFn, ...args) => {

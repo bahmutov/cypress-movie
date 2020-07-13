@@ -11,7 +11,6 @@ if (Cypress.env()['cypress-movie'].cursorTracking) {
 }
 
 before(() => {
-
   if (Cypress.browser.isHeadless) {
     cy.clearViewport()
   }
