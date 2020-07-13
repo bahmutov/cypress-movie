@@ -14,7 +14,7 @@
   border-radius: 15px;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 9999999999;
 }
 
 .cypress__cursor.cypress__cursor--click {
