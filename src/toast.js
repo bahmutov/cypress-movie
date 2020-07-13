@@ -41,6 +41,10 @@ const toast = (message, options = {}) => {
     .invoke(logOptions, 'show', message)
     .invoke(logOptions, 'hide', options.duration)
 
+  const doc = cy.state('document')
+  const body = doc.body
+  Cypress.$(body).append('<style>.tinyToast { z-index: 999999999 }</style>')
+
   if (options.blocking) {
     cy.wait(options.duration, logOptions)
   }

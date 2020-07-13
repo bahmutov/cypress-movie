@@ -26,6 +26,7 @@ const textCommand = (text, options = {}) => {
         text-align:center; width: 100%; padding: 4rem 0;
         font-size: ${options.textSize}; color: white;
         background: linear-gradient(to bottom, rgba(100, 100, 100, 0.3) 0%, rgba(10, 10, 10, 0.5) 40%, rgba(10, 10, 10, 0.5) 70%, rgba(80, 80, 80, 0.3) 100%);
+        z-index: 999999999;
         ">
       ${text}
     </div>
