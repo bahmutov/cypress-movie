@@ -9,7 +9,7 @@ function getArrowSvg(c_e1, c_e2, options = {}) {
   // arrow from https://vanseodesign.com/web-design/svg-markers/
   const arrsvg = `
     <svg id="arrow-svg"
-      style="position:absolute; top:0; left:0; margin:0; width:99.8%; height:99.9%;">
+      style="position:absolute; top:0; left:0; margin:0; width:99.8%; height:99.9%; z-index: 999999999;">
       <defs>
         <marker id="arrow-marker" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
           <path d="M0,0 L0,6 L9,3 z" fill="${options.color}" />
