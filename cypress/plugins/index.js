@@ -18,7 +18,6 @@ const fs = require('fs').promises
 // @ts-ignore
 const _ = require('lodash')
 const sharp = require('sharp')
-const debug = require('debug')('cypress-movie')
 
 /**
  * Warning: modifies the input array
