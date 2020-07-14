@@ -50,6 +50,7 @@ You can control the plugin via environment variables or `env` object inside [cyp
   "env": {
     "cypress-movie": {
       "enabled": true,
+      "cursorTracking": false,
       "width": 1920,
       "height": 640
     }

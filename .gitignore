@@ -5,3 +5,4 @@ cypress/movies
 out.mp4
 size.json
 clipped.mp4
+.DS_Store

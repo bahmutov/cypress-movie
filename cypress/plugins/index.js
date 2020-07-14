@@ -157,10 +157,10 @@ const initTakingScreenshot = (commonOptions) => async (
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-
   const pluginOptions = _.get(config, 'env.cypress-movie', {})
   _.defaults(pluginOptions, {
     enabled: true,
+    cursorTracking: false,
     width: 1920,
     height: 1080,
   })
