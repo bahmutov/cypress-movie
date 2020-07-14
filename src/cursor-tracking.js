@@ -6,14 +6,11 @@ import overwriteType from './cursor-tracking-commands/type.js'
 import overwriteVisit from './cursor-tracking-commands/visit.js'
 
 /**
- * Overwrites some common Cypress commands like "cy.click", "cy.type"
- * by adding a pause after the command.
+ * Overwrites some common Cypress commands like "cy.click", "cy.type" or "cy.visit"
+ * by adding a pause and a animated moving cursor.
  * @param {number} pauseMs - pause to add after the command, default 1000ms
  */
 export const cursorTrackingCommands = (pauseMs = 1000) => {
-  // could be all commands
-  // const commandOverwrites = Object.keys(Cypress.Commands._commands)
-
   const commandOverwrites = [
     // Can be either an object containing name and action OR a string
     {
