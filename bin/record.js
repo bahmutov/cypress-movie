@@ -6,6 +6,7 @@ const fs = require('fs').promises
 const execa = require('execa')
 const path = require('path')
 const _ = require('lodash')
+const debug = require('debug')('cypress-movie')
 const { msToTimestamp } = require('./utils')
 
 const OUTPUT_FOLDER = path.join('cypress', 'movies')
@@ -38,9 +39,9 @@ const processTestResults = (processingOptions = {}) => async (results) => {
       // if the test name includes the special movie string
       // then we want to convert this particular test into a movie
       if (test.title[test.title.length - 1].includes(MOVIE_SYMBOL)) {
-        console.log(test)
-        console.log('from video', run.video)
-        console.log(
+        debug(test)
+        debug('from video', run.video)
+        debug(
           'starts at %dms and goes for %dms',
           test.videoTimestamp,
           test.wallClockDuration,
@@ -54,7 +55,8 @@ const processTestResults = (processingOptions = {}) => async (results) => {
         // gif or mp4
         const extension = '.' + processingOptions.format
         const specName = _.last(run.spec.name.split('/'))
-        const outputName = path.join(OUTPUT_FOLDER, specName + '_' + testTitles) + extension
+        const outputName =
+          path.join(OUTPUT_FOLDER, specName + '_' + testTitles) + extension
         const outputPath = path.resolve(outputName)
 
         let ffmpegArguments
@@ -93,19 +95,20 @@ const processTestResults = (processingOptions = {}) => async (results) => {
         } else {
           throw new Error(`Unknown output format ${processingOptions.format}`)
         }
-        console.log(
-          'ffmpeg arguments: %s %s',
-          ffmpegPath,
-          ffmpegArguments.join(' '),
-        )
+        debug('ffmpeg arguments: %s %s', ffmpegPath, ffmpegArguments.join(' '))
         const execaResult = await execa(ffmpegPath, ffmpegArguments)
-        // console.log(execaResult)
+        debug('execa code %d', execaResult.exitCode)
+        if (execaResult.exitCode) {
+          console.error(execaResult)
+        } else {
+          console.log('Cypress %s %s', MOVIE_SYMBOL, outputName)
+        }
       }
       // console.log(test.title, test.videoTimestamp, test.wallClockDuration)
     }
   }
 
-  console.log('exiting with code %d', results.totalFailed)
+  debug('exiting with code %d', results.totalFailed)
   process.exit(results.totalFailed)
 }
 
@@ -126,7 +129,7 @@ const processingOptions = {
   format: args['--format'],
 }
 
-const browserPath = args['--browser'] || 'chrome';
+const browserPath = args['--browser'] || 'chrome'
 
 cypress
   .run({

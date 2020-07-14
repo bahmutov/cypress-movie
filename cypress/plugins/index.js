@@ -18,7 +18,7 @@ const fs = require('fs').promises
 // @ts-ignore
 const _ = require('lodash')
 const sharp = require('sharp')
-const { runInNewContext } = require('vm')
+const debug = require('debug')('cypress-movie')
 
 /**
  * Warning: modifies the input array
@@ -164,7 +164,7 @@ module.exports = (on, config) => {
     width: 1920,
     height: 1080,
   })
-  console.log('cypress-movie options %o', pluginOptions)
+  debug('cypress-movie options %o', pluginOptions)
   if (!pluginOptions.enabled) {
     return
   }
@@ -200,7 +200,7 @@ module.exports = (on, config) => {
       launchOptions.args.push('--hide-scrollbars')
 
       port = ensureRdpPort(launchOptions.args)
-      console.log(
+      debug(
         'ensureRdpPort %d resolution %dx%d',
         port,
         pluginOptions.width,
