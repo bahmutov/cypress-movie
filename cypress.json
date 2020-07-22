@@ -8,8 +8,8 @@
     "cypress-movie": {
       "enabled": true,
       "cursorTracking": {
-        "enabled": false,
-        "useDot": false
+        "enabled": true,
+        "shape": "arrow"
       },
       "width": 1920,
       "height": 1080

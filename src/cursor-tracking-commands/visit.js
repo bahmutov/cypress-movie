@@ -1,10 +1,10 @@
 let cursorCss
 
 before(() => {
-  let cssPath = 'src/css/cursor-arrow.css'
+  let cssPath = 'src/css/cursor-dot.css'
 
-  if (Cypress.env()['cypress-movie'].cursorTracking.useDot) {
-    cssPath = 'src/css/cursor-dot.css'
+  if (Cypress.env()['cypress-movie'].cursorTracking.shape === 'arrow') {
+    cssPath = 'src/css/cursor-arrow.css'
   }
 
   cy.readFile(cssPath, {

@@ -161,7 +161,7 @@ module.exports = (on, config) => {
     enabled: true,
     cursorTracking: {
       enabled: false,
-      useDot: false
+      shape: "dot"
     },
     width: 1920,
     height: 1080,

@@ -52,7 +52,7 @@ You can control the plugin via environment variables or `env` object inside [cyp
       "enabled": true,
       "cursorTracking": {
         "enabled": false,
-        "useDot": false
+        "shape": "dot" // Valid values: "dot", "arrow"
       },
       "width": 1920,
       "height": 640
