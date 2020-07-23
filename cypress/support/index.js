@@ -4,7 +4,9 @@ import '../../commands'
 import { slowDownCommands } from '../../src/slow-down'
 import { cursorTrackingCommands } from '../../src/cursor-tracking'
 
-if (Cypress.env()['cypress-movie'].cursorTracking) {
+// use Cypress._.get to safely get nested property
+const cursorEnabled = Cypress._.get(Cypress.env(), 'cypress-movie.cursorTracking.enabled')
+if (cursorEnabled) {
   cursorTrackingCommands()
 } else {
   slowDownCommands()

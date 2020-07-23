@@ -159,7 +159,10 @@ module.exports = (on, config) => {
   const pluginOptions = _.get(config, 'env.cypress-movie', {})
   _.defaults(pluginOptions, {
     enabled: true,
-    cursorTracking: false,
+    cursorTracking: {
+      enabled: false,
+      shape: "dot"
+    },
     width: 1920,
     height: 1080,
   })
