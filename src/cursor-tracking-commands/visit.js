@@ -3,7 +3,8 @@ let cursorCss
 before(() => {
   let cssPath = 'src/css/cursor-dot.css'
 
-  if (Cypress.env()['cypress-movie'].cursorTracking.shape === 'arrow') {
+  const cursorShape = Cypress._.get(Cypress.env(), 'cypress-movie.cursorTracking.shape', 'dot')
+  if (cursorShape === 'arrow') {
     cssPath = 'src/css/cursor-arrow.css'
   }
 
