@@ -33,7 +33,7 @@
     "cypress": "4"
   },
   "devDependencies": {
-    "cypress": "4.11.0",
+    "cypress": "4.12.0",
     "prettier": "2.0.5",
     "semantic-release": "^17.1.1"
   },
