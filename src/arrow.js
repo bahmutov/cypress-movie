@@ -73,7 +73,7 @@ const arrowCommand = ($el, options = {}) => {
   }
   const pointAt = directions[options.pointAt] || directions.bottomLeft
 
-  const windowObject = $el[0].ownerDocument.defaultView || $el[0].ownerDocument.parentWindow
+  const windowObject = $el[0].ownerDocument.defaultView || $el[0].ownerDocument.parentWindow || {}
   const scrollOffset = {
     x: windowObject.scrollX || 0,
     y: windowObject.scrollY || 0
