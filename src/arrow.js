@@ -72,9 +72,15 @@ const arrowCommand = ($el, options = {}) => {
     },
   }
   const pointAt = directions[options.pointAt] || directions.bottomLeft
+
+  const windowObject = $el[0].ownerDocument.defaultView || $el[0].ownerDocument.parentWindow
+  const scrollOffset = {
+    x: windowObject.scrollX || 0,
+    y: windowObject.scrollY || 0
+  }
   const to = {
-    x: r[pointAt.x] + options.offsetX,
-    y: r[pointAt.y] + options.offsetY,
+    x: r[pointAt.x] + options.offsetX + scrollOffset.x,
+    y: r[pointAt.y] + options.offsetY + scrollOffset.y,
   }
 
   const arrowFromDirections = {
@@ -131,7 +137,8 @@ const arrowCommand = ($el, options = {}) => {
   if (options.blocking) {
     cy.wait(options.duration, { log: false })
   }
-  cy.wrap($el, { log: false })
+  cy
+    .wrap($el, { log: false })
 }
 
 Cypress.Commands.add('arrow', { prevSubject: 'element' }, arrowCommand)
