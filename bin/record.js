@@ -38,7 +38,7 @@ const processTestResults = (processingOptions = {}) => async (results) => {
       }
       // if the test name includes the special movie string
       // then we want to convert this particular test into a movie
-      if (test.title[test.title.length - 1].includes(MOVIE_SYMBOL) || test.state === 'failed') {
+      if (test.title[test.title.length - 1].includes(MOVIE_SYMBOL)) {
         debug(test)
         debug('from video', run.video)
         debug(
