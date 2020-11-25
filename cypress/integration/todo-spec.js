@@ -37,7 +37,8 @@ const pickFilter = (filter) => {
 
 const clearCompleted = () => {
   cy.get('footer button.clear-completed').should('be.visible').click()
-  cy.get('footer button.clear-completed').should('not.be.visible')
+  // React completely removes this button from the DOM
+  cy.get('footer button.clear-completed').should('not.exist')
   scroll()
 }
 
