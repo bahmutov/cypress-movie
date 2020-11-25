@@ -163,6 +163,7 @@ const args = arg({
   '--width': Number,
   '--fps': Number,
   '--format': String,
+  '--browser': String,
   // Alias
   '-s': '--spec',
   '-w': '--width',
