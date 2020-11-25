@@ -22,7 +22,7 @@ const textCommand = (text, options = {}) => {
 
   const textHtml = `
     <div id="text-overlay-1647"
-      style="position: absolute; left: 0; right: 0; bottom: 0;
+      style="position: fixed; left: 0; right: 0; bottom: 0;
         text-align:center; width: 100%; padding: 4rem 0;
         font-size: ${options.textSize}; color: white;
         background: linear-gradient(to bottom, rgba(100, 100, 100, 0.3) 0%, rgba(10, 10, 10, 0.5) 40%, rgba(10, 10, 10, 0.5) 70%, rgba(80, 80, 80, 0.3) 100%);
