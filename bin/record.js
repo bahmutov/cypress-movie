@@ -6,6 +6,7 @@ const fs = require('fs').promises
 const execa = require('execa')
 const path = require('path')
 const _ = require('lodash')
+const la = require('lazy-ass')
 const debug = require('debug')('cypress-movie')
 const { msToTimestamp } = require('./utils')
 
@@ -46,6 +47,18 @@ const processTestResults = (processingOptions = {}) => async (results) => {
           test.videoTimestamp,
           test.wallClockDuration,
         )
+
+        la(
+          test.videoTimestamp >= 0,
+          'expected positive video timestamp',
+          test.videoTimestamp,
+        )
+        la(
+          test.wallClockDuration >= 0,
+          'expected positive test duration',
+          test.videoTimestamp,
+        )
+
         const testTitles = test.title
           .map(_.deburr)
           .map(_.kebabCase)

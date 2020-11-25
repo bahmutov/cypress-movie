@@ -25,6 +25,7 @@
     "chrome-remote-interface": "0.28.2",
     "debug": "4.1.1",
     "execa": "4.0.2",
+    "lazy-ass": "1.6.0",
     "lodash": "4.17.19",
     "sharp": "0.25.4",
     "tiny-toast": "1.2.0"
