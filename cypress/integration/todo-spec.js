@@ -51,7 +51,9 @@ describe('Todo app', () => {
     cy.screenshot('start', { capture: 'viewport' })
 
     addTodo('this is first todo')
+    cy.get('ul.todo-list li').should('have.length', 1)
     addTodo('second todo')
+    cy.get('ul.todo-list li').should('have.length', 2)
 
     // cy.wait(1000)
     cy.contains('ul.todo-list li', 'second todo').find('input.toggle').click()
