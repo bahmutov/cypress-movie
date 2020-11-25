@@ -37,7 +37,8 @@ const pickFilter = (filter) => {
 
 const clearCompleted = () => {
   cy.get('footer button.clear-completed').should('be.visible').click()
-  cy.get('footer button.clear-completed').should('not.be.visible')
+  // React completely removes this button from the DOM
+  cy.get('footer button.clear-completed').should('not.exist')
   scroll()
 }
 
@@ -51,7 +52,9 @@ describe('Todo app', () => {
     cy.screenshot('start', { capture: 'viewport' })
 
     addTodo('this is first todo')
+    cy.get('ul.todo-list li').should('have.length', 1)
     addTodo('second todo')
+    cy.get('ul.todo-list li').should('have.length', 2)
 
     // cy.wait(1000)
     cy.contains('ul.todo-list li', 'second todo').find('input.toggle').click()

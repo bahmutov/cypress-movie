@@ -25,15 +25,16 @@
     "chrome-remote-interface": "0.28.2",
     "debug": "4.1.1",
     "execa": "4.0.2",
-    "lodash": "4.17.15",
+    "lazy-ass": "1.6.0",
+    "lodash": "4.17.19",
     "sharp": "0.25.4",
     "tiny-toast": "1.2.0"
   },
   "peerDependencies": {
-    "cypress": "4"
+    "cypress": "4 || 5 || 6"
   },
   "devDependencies": {
-    "cypress": "4.12.1",
+    "cypress": "6.0.0",
     "prettier": "2.0.5",
     "semantic-release": "^17.1.1"
   },

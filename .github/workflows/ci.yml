@@ -30,12 +30,16 @@ jobs:
           path: cypress/videos
 
       - name: Generate gif movies 🎥
+        env:
+          DEBUG: cypress-movie
         run: |
           node bin/record.js \
           --width 1280 --fps 30 --format gif \
           --spec cypress/integration/gif-spec.js
 
       - name: Generate mp4 movies 🎥
+        env:
+          DEBUG: cypress-movie
         run: |
           node bin/record.js \
           --width 1280 --format mp4 \

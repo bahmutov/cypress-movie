@@ -6,6 +6,7 @@ const fs = require('fs').promises
 const execa = require('execa')
 const path = require('path')
 const _ = require('lodash')
+const la = require('lazy-ass')
 const debug = require('debug')('cypress-movie')
 const { msToTimestamp } = require('./utils')
 
@@ -15,6 +16,36 @@ const MOVIE_SYMBOL = '🎥'
 const MOVIE_REGEX = /🎥/g
 
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path
+
+const getTimestampsFromTest = (test) => {
+  if (_.isFinite(test.videoTimestamp) && _.isFinite(test.wallClockDuration)) {
+    debug('Cypress version < 5')
+    return {
+      timestamp: test.videoTimestamp,
+      duration: test.wallClockDuration,
+    }
+  }
+
+  if (Array.isArray(test.attempts)) {
+    const lastAttempt = _.last(test.attempts)
+    debug('last attempt %o', lastAttempt)
+
+    if (
+      _.isFinite(lastAttempt.videoTimestamp) &&
+      _.isFinite(lastAttempt.duration)
+    ) {
+      return {
+        timestamp: lastAttempt.videoTimestamp,
+        duration: lastAttempt.duration,
+      }
+    }
+  }
+
+  console.error(test)
+  throw new Error(
+    'Do not know how to extract the timestamp and duration from test',
+  )
+}
 
 const processTestResults = (processingOptions = {}) => async (results) => {
   _.defaults(processingOptions, {
@@ -41,11 +72,27 @@ const processTestResults = (processingOptions = {}) => async (results) => {
       if (test.title[test.title.length - 1].includes(MOVIE_SYMBOL)) {
         debug(test)
         debug('from video', run.video)
+
+        const timing = getTimestampsFromTest(test)
+        la(timing, 'could not determine timing for test', test)
+
         debug(
           'starts at %dms and goes for %dms',
-          test.videoTimestamp,
-          test.wallClockDuration,
+          timing.timestamp,
+          timing.duration,
         )
+
+        la(
+          timing.timestamp >= 0,
+          'expected positive video timestamp',
+          timing.timestamp,
+        )
+        la(
+          timing.duration >= 0,
+          'expected positive test duration',
+          timing.duration,
+        )
+
         const testTitles = test.title
           .map(_.deburr)
           .map(_.kebabCase)
@@ -67,9 +114,9 @@ const processTestResults = (processingOptions = {}) => async (results) => {
             '-i',
             run.video,
             '-ss',
-            msToTimestamp(test.videoTimestamp),
+            msToTimestamp(timing.timestamp),
             '-t',
-            msToTimestamp(test.wallClockDuration),
+            msToTimestamp(timing.duration),
             '-y',
             '-vf',
             `fps=${processingOptions.fps},scale=${processingOptions.width}:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse`,
@@ -82,9 +129,9 @@ const processTestResults = (processingOptions = {}) => async (results) => {
             '-i',
             run.video,
             '-ss',
-            msToTimestamp(test.videoTimestamp),
+            msToTimestamp(timing.timestamp),
             '-t',
-            msToTimestamp(test.wallClockDuration),
+            msToTimestamp(timing.duration),
             '-y',
             '-vf',
             `fps=${processingOptions.fps},scale=${processingOptions.width}:-1:flags=lanczos`,
@@ -104,7 +151,6 @@ const processTestResults = (processingOptions = {}) => async (results) => {
           console.log('Cypress %s %s', MOVIE_SYMBOL, outputName)
         }
       }
-      // console.log(test.title, test.videoTimestamp, test.wallClockDuration)
     }
   }
 
@@ -138,3 +184,7 @@ cypress
     headless: true,
   })
   .then(processTestResults(processingOptions))
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })

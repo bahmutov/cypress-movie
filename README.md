@@ -1,4 +1,4 @@
-# cypress-movie [![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app]
+# cypress-movie [![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app] [![Trees planted this month](https://cloudsynth.com/tree-badges/i/01EJRHZHPB709P9DYCSR7FGHYJ?period=month)](https://cloudsynth.com/tree-badges/r/01EJRHZHPB709P9DYCSR7FGHYJ)
 
 > Exploring how one can generate product demo videos from Cypress tests
 
