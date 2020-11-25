@@ -19,7 +19,7 @@ const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path
 
 const getTimestampsFromTest = (test) => {
   if (_.isFinite(test.videoTimestamp) && _.isFinite(test.wallClockDuration)) {
-    // Cypress < v5
+    debug('Cypress version < 5')
     return {
       timestamp: test.videoTimestamp,
       duration: test.wallClockDuration,
@@ -28,6 +28,8 @@ const getTimestampsFromTest = (test) => {
 
   if (Array.isArray(test.attempts)) {
     const lastAttempt = _.last(test.attempts)
+    debug('last attempt %o', lastAttempt)
+
     if (
       _.isFinite(lastAttempt.videoTimestamp) &&
       _.isFinite(lastAttempt.duration)
@@ -74,14 +76,22 @@ const processTestResults = (processingOptions = {}) => async (results) => {
         const timing = getTimestampsFromTest(test)
         la(timing, 'could not determine timing for test', test)
 
-        debug('starts at %dms and goes for %dms', test.timestamp, test.duration)
+        debug(
+          'starts at %dms and goes for %dms',
+          timing.timestamp,
+          timing.duration,
+        )
 
         la(
-          test.timestamp >= 0,
+          timing.timestamp >= 0,
           'expected positive video timestamp',
-          test.timestamp,
+          timing.timestamp,
         )
-        la(test.duration >= 0, 'expected positive test duration', test.duration)
+        la(
+          timing.duration >= 0,
+          'expected positive test duration',
+          timing.duration,
+        )
 
         const testTitles = test.title
           .map(_.deburr)
@@ -104,9 +114,9 @@ const processTestResults = (processingOptions = {}) => async (results) => {
             '-i',
             run.video,
             '-ss',
-            msToTimestamp(test.timestamp),
+            msToTimestamp(timing.timestamp),
             '-t',
-            msToTimestamp(test.duration),
+            msToTimestamp(timing.duration),
             '-y',
             '-vf',
             `fps=${processingOptions.fps},scale=${processingOptions.width}:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse`,
@@ -119,9 +129,9 @@ const processTestResults = (processingOptions = {}) => async (results) => {
             '-i',
             run.video,
             '-ss',
-            msToTimestamp(test.timestamp),
+            msToTimestamp(timing.timestamp),
             '-t',
-            msToTimestamp(test.duration),
+            msToTimestamp(timing.duration),
             '-y',
             '-vf',
             `fps=${processingOptions.fps},scale=${processingOptions.width}:-1:flags=lanczos`,
