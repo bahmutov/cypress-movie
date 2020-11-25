@@ -138,3 +138,7 @@ cypress
     headless: true,
   })
   .then(processTestResults(processingOptions))
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })
