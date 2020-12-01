@@ -162,6 +162,9 @@ npx cypress-movie
 # or use --spec name or wildcard pattern
 npx cypress-movie --spec cypress/integration/my-spec.js
 npx cypress-movie --spec 'cypress/integration/movies*-spec.js'
+
+#record only on test failures
+RECORD_FAILED_TESTS=true npx cypress-movie --spec cypress/integration/my-spec.js
 ```
 
 The individual movies will be saved in "cypress/movies" folder.
