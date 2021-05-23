@@ -27,7 +27,7 @@
     "execa": "4.0.2",
     "lazy-ass": "1.6.0",
     "lodash": "4.17.19",
-    "sharp": "0.25.4",
+    "sharp": "0.28.2",
     "tiny-toast": "1.2.0"
   },
   "peerDependencies": {
