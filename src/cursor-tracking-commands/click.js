@@ -3,6 +3,8 @@ export default function ({ pauseMs }, commandFn, subject, ...args) {
     .wrap(subject)
     .trigger('mousemove')
     .wait(pauseMs).then(() => {
-      return commandFn(subject, ...args)
+      return commandFn(subject, ...args, {
+        scrollBehavior: false
+      })
     })
 }

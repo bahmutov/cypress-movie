@@ -32,6 +32,12 @@ const textCommand = (text, options = {}) => {
     </div>
   `
   Cypress.$(body).append(textHtml)
+  const textElement = Cypress.$('#text-overlay-1647')
+  const textElementHeight = Math.round(textElement.outerHeight())
+
+  Cypress.$(body).css({
+    paddingBottom: `${textElementHeight}px`
+  })
 
   // remove text after "duration" ms
   setTimeout(() => {
