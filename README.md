@@ -1,4 +1,4 @@
-# cypress-movie [![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-6.9.1-brightgreen)
+# cypress-movie [![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-7.7.0-brightgreen)
 
 <!--
 [![Trees planted this month](https://cloudsynth.com/tree-badges/i/01EJRHZHPB709P9DYCSR7FGHYJ?period=month)](https://cloudsynth.com/tree-badges/r/01EJRHZHPB709P9DYCSR7FGHYJ)
