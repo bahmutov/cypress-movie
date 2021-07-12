@@ -16,7 +16,8 @@
         "chrome-remote-interface",
         "@ffmpeg-installer/ffmpeg",
         "arg",
-        "sharp"
+        "sharp",
+        "lodash"
       ],
       "enabled": false
     }
