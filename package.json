@@ -22,7 +22,7 @@
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "1.0.20",
     "arg": "5.0.0",
-    "chrome-remote-interface": "0.30.1",
+    "chrome-remote-interface": "0.31.0",
     "debug": "4.1.1",
     "execa": "4.0.2",
     "lazy-ass": "1.6.0",
