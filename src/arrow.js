@@ -114,7 +114,7 @@ const arrowCommand = ($el, options = {}) => {
   let textHtml = ''
   if (options.text) {
     textHtml = `
-      <div style="position: absolute; left: ${from.x}px; top: ${from.y}px; color:${options.color}; font-size: ${options.textSize}; padding: 20px 0; transform: translate(-50%, 0);">
+      <div style="position: absolute; left: ${from.x}px; top: ${from.y}px; color:${options.color}; font-size: ${options.textSize}; padding: 20px 0; transform: translate(-50%, 0); z-index: 9999999999;">
       ${options.text}</div>
     `
   }
